@@ -4,6 +4,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+
+	"groupie-tracker/models"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
@@ -14,5 +16,10 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	tmple.Execute(w, nil)
+	artist := models.Artist{
+		Name:  "John Lennon",
+		Image: "",
+	}
+
+	tmple.Execute(w, artist)
 }

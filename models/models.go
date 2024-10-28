@@ -1,20 +1,32 @@
 // models.go
-package main
+package models
 
 type Artist struct {
 	// Define the fields based on the API response
-	Name string `json:"name"`
-	// Add other fields as necessary
+	ID           int      `json:"id"`
+	Name         string   `json:"name"`
+	CreationDate int      `json:"creationDate"`
+	FirstAlbum   string   `json:"firstAlbum"`
+	Members      []string `json:"members"`
+	Image        string   `json:"image"`       // api
+	Locations    string   `json:"locations"`   // api
+	Relations    string   `json:"relations"`   // api
+	ConcertDate  string   `json:"concertDate"` // api
 }
 
 type Location struct {
 	// Define fields
+	ID        int      `json:"id"`
+	Locations []string `json:"locations"`
+	Dates     string   `json:"dates"`
 }
 
 type Date struct {
-	// Define fields
+	ID    int      `json:"id"`
+	Dates []string `json:"dates"`
 }
 
 type Relation struct {
-	// Define fields
+	ID             int                 `json:"id"`
+	DatesLocations map[string][]string `json:"datesLocations"`
 }

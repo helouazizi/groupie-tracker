@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>groupie-tracker</title>
 </head>
+
 <body>
-    <h1>hello there the web site under  construction</h1>
+    <h1>hello there the web site under construction</h1>
+    <p>we are working hard to bring you the best experience</p>
+    <p>please check back later</p>
+    <div class="container">
+        {{ range . }}
+        <div class="artist">
+            <h2>{{ .Artist.Name }}</h2>
+            <img src= "{{ .Artist.Image }}" alt="artist">
+        </div>
+        {{ end }}
+    </div>
+
 </body>
+
 </html>
