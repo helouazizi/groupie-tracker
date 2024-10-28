@@ -1,25 +1,44 @@
+// handlers/handlers.go
 package handlers
 
 import (
-	"html/template"
+	"groupie-tracker/api"
 	"log"
 	"net/http"
-
-	"groupie-tracker/models"
+	"text/template"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		w.WriteHeader(http.StatusNotFound)
 	}
+	if err := api.FetchArtists(); err != nil {
+		log.Fatal(err)
+	}
 	tmple, err := template.ParseFiles("templates/home.html")
 	if err != nil {
 		log.Fatal(err)
 	}
-	artist := models.Artist{
-		Name:  "John Lennon",
-		Image: "",
+
+	err = tmple.Execute(w, api.Artists)
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	tmple.Execute(w, artist)
+}
+
+/*
+lets serve our static folder for any assets request
+*/
+func ServStatic(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == "/static/" || r.URL.Path == "/static" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	http.StripPrefix("/static", http.FileServer(http.Dir("static"))).ServeHTTP(w, r)
+
 }
