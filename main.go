@@ -12,6 +12,7 @@ import (
 func main() {
 	// fmt.Println("Artists:", api.Artists)
 	http.HandleFunc("/", handlers.Home)
+	http.HandleFunc("/details", handlers.ArtistDetails)
 	http.HandleFunc("/static/", handlers.ServStatic)
 	// Output other data as needed
 	fmt.Println("server listnign on port  8080 >> http://localhost:8080 ")

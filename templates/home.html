@@ -17,7 +17,9 @@
         {{ range . }}
         <div class="artist">
             <h3 class="artist-name">{{ .Name }}</h3>
-            <img src="{{ .Image }}" alt="artist">
+            <a href="/details?id={{ .ID }}">
+                <img src="{{ .Image }}" alt="artist">
+            </a>
         </div>
         {{ end }}
     </div>
