@@ -1,3 +1,4 @@
+notes.txt
 
 ## understand the difference between a `web page`, a` website`, a `web server`, and a `search engine`
 ## `server-side programming`
@@ -15,3 +16,5 @@
 ##  Caching
 ##  Authentication
 ## actions
+## Implement Caching `Server-Side Caching` or `client-Side Caching`
+##  Use Server-Side Rendering (SSR) or Static Site Generation (SSG)

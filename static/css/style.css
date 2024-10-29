@@ -1,52 +1,71 @@
 /* static/css/style.css */
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: #111; /* Deep black background */
-    color: #f0f0f0; /* Light gray text */
-    font-family: 'Arial', sans-serif;
+  background-color: #111;
+  color: #f0f0f0;
+  font-family: "Arial", sans-serif;
 }
 
 header {
-    text-align: center;
-    padding: 30px;
-    background-color: #555539; /* Bright coral header */
-    color: #ffffff; /* White text for contrast */
+  text-align: center;
+  padding: 30px;
+  background-color: #555539;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(255, 193, 7, 0.5);
 }
 
 .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
-    gap: 30px; /* Space between cards */
-    padding: 10%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 30px;
+  padding: 10%;
 }
 
 .artist {
-    border: 2px solid #ffa502; /* Bright orange border */
-    border-radius: 10px;
-    text-align: center;
-    background-color: rgba(255, 193, 7, 0.2); /* Light yellow background with transparency */
-    padding: 10px;
-   transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
+  border: 2px solid #ffa502;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgba(255, 193, 7, 0.2);
+  padding: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .artist:hover {
-    transform: scale(1.05) rotate(2deg); /* Slightly enlarge on hover */
-    box-shadow: 0 4px 20px rgba(255, 193, 7, 0.5); /* Add shadow on hover */
-    
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 4px 20px rgba(255, 193, 7, 0.5);
+  cursor: pointer;
 }
 
 .artist h3 {
-    margin: 10px;
+  margin: 10px;
 }
 
 .artist img {
-    border-radius: 10px;
-    width: 100%; /* Make image responsive */
-    height: auto; /* Maintain aspect ratio */
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+}
+
+/********** media query ***********/
+
+@media (max-width: 320px) {
+  .title {
+    font-size: medium;
+  }
+  .artist-name {
+    font-size: small;
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    padding: 10%;
+  }
 }

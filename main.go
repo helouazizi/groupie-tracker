@@ -6,17 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"groupie-tracker/api"
 	"groupie-tracker/handlers"
 )
-
-func init() {
-	if err := api.FetchArtists(); err != nil {
-		log.Fatalf("Failed to fetch artists: %v", err)
-	}
-
-	// Repeat for locations, dates, and relation
-}
 
 func main() {
 	// fmt.Println("Artists:", api.Artists)

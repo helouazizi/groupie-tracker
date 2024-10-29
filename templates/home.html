@@ -11,12 +11,12 @@
 
 <body>
     <header>
-        <h1>groupie-tracker</h1>
+        <h1 class="title">groupie-tracker</h1>
     </header>
     <div class="container">
         {{ range . }}
         <div class="artist">
-            <h3>{{ .Name }}</h3>
+            <h3 class="artist-name">{{ .Name }}</h3>
             <img src="{{ .Image }}" alt="artist">
         </div>
         {{ end }}
