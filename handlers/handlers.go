@@ -9,9 +9,9 @@ import (
 )
 
 type Pages struct {
-	homePage *template.Template
+	homePage   *template.Template
+	Artistpage *template.Template
 	ErrorPage  *template.Template
-
 }
 
 var pages Pages
@@ -22,11 +22,27 @@ func init() {
 	if err != nil {
 		log.Fatalf("Error parsing template: %v", err)
 	}
+	pages.Artistpage, err = template.ParseFiles("templates/artist.html")
+	if err != nil {
+		log.Fatalf("Error parsing template: %v", err)
+	}
+	pages.ErrorPage, err = template.ParseFiles("templates/error.html")
+
+	if err != nil {
+		log.Fatalf("Error parsing template: %v", err)
+	}
 }
 
 func Home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		http.NotFound(w, r)
+		w.WriteHeader(http.StatusNotFound)
+		pages.ErrorPage.Execute(w, "NOT FOUND")
+		return
+	}
+
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.ErrorPage.Execute(w, "METHOD NOT ALLOWED")
 		return
 	}
 
@@ -45,13 +61,19 @@ lets serve our static folder for any assets request
 */
 func ServStatic(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/static/" || r.URL.Path == "/static" {
-		w.WriteHeader(http.StatusBadRequest)
+		w.WriteHeader(http.StatusNotFound)
+		pages.ErrorPage.Execute(w, "NOT FOUND")
 		return
 	}
 	if r.Method != "GET" {
-		w.WriteHeader(http.StatusBadRequest)
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.ErrorPage.Execute(w, "METHOD NOT ALLOWED")
 		return
 	}
 	http.StripPrefix("/static", http.FileServer(http.Dir("static"))).ServeHTTP(w, r)
 
 }
+
+/*
+this funtion is special for the errors when occurs
+*/
