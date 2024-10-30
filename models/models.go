@@ -14,7 +14,19 @@ type Artist struct {
 	Relations    string   `json:"relations"`   // api
 	ConcertDate  string   `json:"concertDate"` // api
 }
-
+type Artist_Details struct {
+	// Define the fields based on the API response
+	ID           int
+	Name         string
+	CreationDate int
+	FirstAlbum   string
+	Image        string
+	Members      []string
+	Locations    []string
+	Relations    []string
+	ConcertDate  []string
+	Dates        []string
+}
 type Location struct {
 	// Define fields
 	ID        int      `json:"id"`

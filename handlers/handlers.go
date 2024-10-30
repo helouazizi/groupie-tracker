@@ -2,12 +2,9 @@
 package handlers
 
 import (
-	"fmt"
 	"groupie-tracker/api"
-	"groupie-tracker/models"
 	"log"
 	"net/http"
-	"strconv"
 	"text/template"
 )
 
@@ -86,27 +83,17 @@ func ArtistDetails(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "text/html")
 	id := r.URL.Query().Get("id")
-    artist, err := getArtistByID(id) // Get the artist details
-    if err != nil {
-        http.Error(w, "Artist not found", http.StatusNotFound)
-        return
-    }
+	locations, err := api.FetchDetails(id) // Get the artist details
+	if err != nil {
+		http.Error(w, "Artist not found", http.StatusNotFound)
+		return
+	}
 
-	if err := pages.Artistpage.Execute(w, artist); err != nil {
+	if err := pages.Artistpage.Execute(w, locations); err != nil {
 		log.Printf("Error executing template: %v", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 
-}
-
-func getArtistByID(id string) (*models.Artist, error) {
-	ids,_ := strconv.Atoi(id)
-	for _, artist := range *api.Artists { // 'artists' is a slice of Artist structs
-		if artist.ID == ids {
-			return &artist, nil
-		}
-	}
-	return nil, fmt.Errorf("artist not found")
 }
 
 /*
