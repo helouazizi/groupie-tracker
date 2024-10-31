@@ -6,46 +6,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/details.css">
     <title>Artist Details</title>
 </head>
 
 <body>
-    <h1>{{ .Name }}</h1>
-    <img src="{{ .Image }}" alt="{{ .Name }}'s image" style="width:200px;height:auto;">
-    <p><strong>Creation Date:</strong> {{ .CreationDate }}</p>
-    <p><strong>First Album:</strong> {{ .FirstAlbum }}</p>
-    <p><strong>Members:</strong></p>
-    <ul>
-        {{ range .Members }}
-        <li>{{ . }}</li>
-        {{ end }}
-    </ul>
-    <p><strong>Locations:</strong></p>
-    <ul>
-        {{ range .Locations }}
-        <li>{{ . }}</li>
-        {{ end }}
-    </ul>
-    <p><strong>Concert Dates:</strong></p>
-    <ul>
-        {{ range .ConcertDate }}
-        <li>{{ . }}</li>
-        {{ end }}
-    </ul>
-    <p><strong>Dates and Locations:</strong></p>
-    <ul>
-        {{ range $date, $locations := .DatesLocations }}
-        <li>{{ $date }}:
+    <header>
+        <h1 class="title">groupie-tracker</h1>
+    </header>
+    <div class="container">
+        <div class="artist">
+            <h1>{{ .Name }}</h1>
+            <img src="{{ .Image }}" alt="{{ .Name }}'s image">
+            <p><strong>Creation Date:</strong> {{ .CreationDate }}</p>
+            <p><strong>First Album:</strong> {{ .FirstAlbum }}</p>
+        </div>
+        <div class="members">
+            <p><strong>Members:</strong></p>
             <ul>
-                {{ range $locations }}
+                {{ range .Members }}
                 <li>{{ . }}</li>
                 {{ end }}
             </ul>
-        </li>
-        {{ end }}
-    </ul>
+        </div>
+        <div class="locations">
+            <p><strong>Locations:</strong></p>
+            <ul>
+                {{ range .Locations }}
+                <li>{{ . }}</li>
+                {{ end }}
+            </ul>
+        </div>
+        <div class="concert-date">
+            <p><strong>Concert Dates:</strong></p>
+            <ul>
+                {{ range .ConcertDate }}
+                <li>{{ . }}</li>
+                {{ end }}
+            </ul>
+        </div>
+        <div class="date-and-locations">
+            <p><strong>Dates and Locations:</strong></p>
+            <ul>
+                {{ range $date, $locations := .DatesLocations }}
+                <li>{{ $date }}:
+                    <ul>
+                        {{ range $locations }}
+                        <li>{{ . }}</li>
+                        {{ end }}
+                    </ul>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
 
-    <a href="/">back home</a>
+
+
+    </div>
+    <div class="back-home">
+        <a href="/">back home</a>
+    </div>
+
 </body>
 
 </html>

@@ -1,0 +1,60 @@
+/* static/css/details.css */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #111;
+  color: #f0f0f0;
+  font-family: "Arial", sans-serif;
+}
+
+header {
+  text-align: center;
+  padding: 30px;
+  background-color: #555539;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(255, 193, 7, 0.5);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 30px;
+  padding: 10%;
+}
+
+.artist {
+  border: 2px solid #ffa502;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgba(255, 193, 7, 0.2);
+  padding: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.artist h3 {
+  margin: 10px;
+}
+
+.artist img {
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+}
+
+.back-home {
+  margin-left: 45%;
+  margin-bottom: 100px;
+  a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background-color: #555539;
+  }
+}
