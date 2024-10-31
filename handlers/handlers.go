@@ -83,13 +83,13 @@ func ArtistDetails(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "text/html")
 	id := r.URL.Query().Get("id")
-	locations, err := api.FetchDetails(id) // Get the artist details
+	artist_details, err := api.FetchDetails(id) // Get the artist details
 	if err != nil {
 		http.Error(w, "Artist not found", http.StatusNotFound)
 		return
 	}
 
-	if err := pages.Artistpage.Execute(w, locations); err != nil {
+	if err := pages.Artistpage.Execute(w, artist_details); err != nil {
 		log.Printf("Error executing template: %v", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}

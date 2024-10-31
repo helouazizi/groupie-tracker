@@ -8,22 +8,24 @@ import (
 	"net/http"
 )
 
-func Fetch_locations(url string) ([]string, error) {
-	var locations *models.Location
+func Fetch_locations(url string) (*models.Location, error) {
+
+	locations := &models.Location{}
 
 	res, err := http.Get(url)
 	if err != nil {
 		return nil, err
 	}
+
 	defer res.Body.Close()
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
 	}
-	if err := json.Unmarshal(body, &locations); err != nil {
+	if err := json.Unmarshal(body, locations); err != nil {
 		return nil, err
 	}
 
-	return locations.Locations, nil
+	return locations, nil
 
 }

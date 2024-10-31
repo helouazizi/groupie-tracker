@@ -2,6 +2,13 @@
 // models.go
 package models
 
+/*
+type ApiResponse struct {
+	Artists   string `json:"artists"`   // pai
+	Locations string `json:"locations"` // api
+	Dates     string `json:"dates"`     // api
+	Relation  string `json:"relation"`  // api
+}*/
 type Artist struct {
 	// Define the fields based on the API response
 	ID           int      `json:"id"`
@@ -9,11 +16,15 @@ type Artist struct {
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
 	Members      []string `json:"members"`
-	Image        string   `json:"image"`       // api
-	Locations    string   `json:"locations"`   // api
-	Relations    string   `json:"relations"`   // api
-	ConcertDate  string   `json:"concertDate"` // api
+	Image        string   `json:"image"` // api
+	Locations    string   `json:"locations"`
+	Local        struct{ Location }
+	Relations    string `json:"relations"`
+	Rel          struct{ Relation }
+	ConcertDate  string `json:"concertDates"`
+	Dat          struct{ Date }
 }
+
 type Artist_Details struct {
 	// Define the fields based on the API response
 	ID           int
@@ -25,7 +36,6 @@ type Artist_Details struct {
 	Locations    []string
 	Relations    []string
 	ConcertDate  []string
-	Dates        []string
 }
 type Location struct {
 	// Define fields

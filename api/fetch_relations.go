@@ -1,4 +1,3 @@
-// api/fetch_dates.go
 // api/fetch_relations.go
 package api
 
@@ -9,8 +8,8 @@ import (
 	"net/http"
 )
 
-func Fetch_Dates(url string) (*models.Date, error) {
-	dates := &models.Date{}
+func Fetch_Relations(url string) (*models.Relation, error) {
+	relations := &models.Relation{}
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -23,10 +22,10 @@ func Fetch_Dates(url string) (*models.Date, error) {
 		return nil, err
 	}
 
-	if err := json.Unmarshal(body, dates); err != nil {
+	if err := json.Unmarshal(body, relations); err != nil {
 		return nil, err
 	}
 
-	return dates, nil
+	return relations, nil
 
 }
