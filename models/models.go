@@ -27,15 +27,15 @@ type Artist struct {
 
 type Artist_Details struct {
 	// Define the fields based on the API response
-	ID           int
-	Name         string
-	CreationDate int
-	FirstAlbum   string
-	Image        string
-	Members      []string
-	Locations    []string
-	Relations    []string
-	ConcertDate  []string
+	ID             int
+	Name           string
+	CreationDate   int
+	FirstAlbum     string
+	Image          string
+	Members        []string
+	Locations      []string
+	ConcertDate    []string
+	DatesLocations map[string][]string
 }
 type Location struct {
 	// Define fields

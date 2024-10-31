@@ -32,6 +32,18 @@
         <li>{{ . }}</li>
         {{ end }}
     </ul>
+    <p><strong>Dates and Locations:</strong></p>
+    <ul>
+        {{ range $date, $locations := .DatesLocations }}
+        <li>{{ $date }}:
+            <ul>
+                {{ range $locations }}
+                <li>{{ . }}</li>
+                {{ end }}
+            </ul>
+        </li>
+        {{ end }}
+    </ul>
 
     <a href="/">back home</a>
 </body>
