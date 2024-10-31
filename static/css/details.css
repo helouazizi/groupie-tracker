@@ -21,10 +21,18 @@ header {
 }
 
 .container {
+  /*display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 30px;*/
+  padding: 10%;
+}
+
+.full-card {
+  border-radius: 10px;
+  border: 2px solid rgba(255, 193, 7, 0.2);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 30px;
-  padding: 10%;
 }
 
 .artist {
@@ -47,7 +55,7 @@ header {
 }
 
 .back-home {
-  margin-left: 45%;
+  margin-left: 40%;
   margin-bottom: 100px;
   a {
     text-decoration: none;
