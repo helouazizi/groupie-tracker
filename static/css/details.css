@@ -21,31 +21,36 @@ header {
 }
 
 .container {
-  /*display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px;*/
-  padding: 10%;
+  padding: 5%;
 }
 
 .full-card {
   border-radius: 10px;
   border: 2px solid rgba(255, 193, 7, 0.2);
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px;
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
 }
 
 .artist {
   border: 2px solid #ffa502;
+  height: fit-content;
+  width: 25%;
   border-radius: 10px;
   text-align: center;
   background-color: rgba(255, 193, 7, 0.2);
-  padding: 10px;
+  padding: 20px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.artist h3 {
-  margin: 10px;
+.artist:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(255, 193, 7, 0.5);
+}
+
+.artist h1 {
+  font-size: 1.5em;
+  margin: 10px 0;
 }
 
 .artist img {
@@ -53,16 +58,57 @@ header {
   width: 100%;
   height: auto;
 }
+.artist p {
+  text-align: start;
+  color: #ffffff;
+  margin-top: 5px;
+}
+
+.details {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  div {
+    margin: 0px 1%;
+  }
+  h3 {
+    color: #37fc9a;
+    font: 1em sans-serif;
+  }
+  h4 {
+    color: #759a73;
+    pre {
+      color: #ffffff;
+    }
+  }
+}
+
+.members,
+.locations,
+.concert-date,
+.date-and-locations {
+  border: 1px solid rgba(255, 193, 7, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+  height: fit-content;
+  background-color: rgba(255, 193, 7, 0.1);
+}
 
 .back-home {
-  margin-left: 40%;
-  margin-bottom: 100px;
-  a {
-    text-decoration: none;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    background-color: #555539;
-  }
+  text-align: center;
+  margin: 30px 0;
+}
+
+.back-home a {
+  text-decoration: none;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: #555539;
+  transition: background-color 0.3s ease;
+}
+
+.back-home a:hover {
+  background-color: #444;
 }

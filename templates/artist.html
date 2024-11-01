@@ -1,5 +1,4 @@
 <!-- templates/artist.html -->
-<!-- templates/artist_details.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/details.css">
-    <title>Artist Details</title>
+    <title>{{ .Name }} -Details</title>
 </head>
 
 <body>
@@ -22,44 +21,47 @@
                 <p><strong>Creation Date:</strong> {{ .CreationDate }}</p>
                 <p><strong>First Album:</strong> {{ .FirstAlbum }}</p>
             </div>
-            <div class="members">
-                <p><strong>Members:</strong></p>
-                <ul>
+            <div class="details">
+                <div class="members">
+                    <h3>Members:</h3>
+
                     {{ range .Members }}
-                    <li>{{ . }}</li>
+                    <pre>{{ . }}</pre>
                     {{ end }}
-                </ul>
-            </div>
-            <div class="locations">
-                <p><strong>Locations:</strong></p>
-                <ul>
+
+                </div>
+                <div class="locations">
+                    <h3>Locations:</h3>
+
                     {{ range .Locations }}
-                    <li>{{ . }}</li>
+                    <pre>{{ . }}</pre>
                     {{ end }}
-                </ul>
-            </div>
-            <div class="concert-date">
-                <p><strong>Concert Dates:</strong></p>
-                <ul>
+
+                </div>
+                <div class="concert-date">
+                    <h3>Concert Dates:</h3>
+
                     {{ range .ConcertDate }}
-                    <li>{{ . }}</li>
+                    <pre>{{ . }}</pre>
                     {{ end }}
-                </ul>
-            </div>
-            <div class="date-and-locations">
-                <p><strong>Dates and Locations:</strong></p>
-                <ul>
+
+                </div>
+                <div class="date-and-locations">
+                    <h3>Dates and Locations:</h3>
+
                     {{ range $date, $locations := .DatesLocations }}
-                    <li>{{ $date }}:
-                        <ul>
-                            {{ range $locations }}
-                            <li>{{ . }}</li>
-                            {{ end }}
-                        </ul>
-                    </li>
+                    <h4>{{ $date }}:
+
+                        {{ range $locations }}
+                        <pre>{{ . }}</pre>
+                        {{ end }}
+
+                    </h4>
                     {{ end }}
-                </ul>
+
+                </div>
             </div>
+
         </div>
     </div>
     <div class="back-home">
