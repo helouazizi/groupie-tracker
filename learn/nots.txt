@@ -1,3 +1,4 @@
+learn/nots.txt
 ### Common Misconceptions
 ## Assuming Safety:
 Many programmers assume that simply writing code in C makes it safe 
@@ -20,4 +21,4 @@ system resources, which can lead to vulnerabilities if not properly managed.
 
 
 
-######## endpoint (0x253 Assembly Language)
+######## 0x281 File Access
