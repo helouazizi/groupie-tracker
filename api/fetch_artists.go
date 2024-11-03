@@ -12,38 +12,38 @@ import (
 )
 
 var (
-	Artists *[]models.Artist
+	Artists []models.Artist
 )
 
 func init() {
-	var err error
-	Artists, err = fetchArtists()
+
+	err := fetchArtists()
 	if err != nil {
-		log.Fatalf("Error initializing Artists: %v", err)
+		log.Fatal(err)
 	}
 }
 
-func fetchArtists() (*[]models.Artist, error) {
+func fetchArtists() error {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
-		log.Fatal(err)
+		return err
+
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("error: received status code %d", resp.StatusCode)
+		return err
 	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalf("error reading response body: %v", err)
+		return err
 	}
 
-	var artists []models.Artist
-	if err := json.Unmarshal(body, &artists); err != nil {
-		return nil, fmt.Errorf("error unmarshaling JSON: %v", err)
+	if err := json.Unmarshal(body, &Artists); err != nil {
+		return fmt.Errorf("error unmarshaling JSON: %v", err)
 	}
 
-	return &artists, nil
+	return nil
 
 }

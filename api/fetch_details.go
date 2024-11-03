@@ -3,31 +3,64 @@ package api
 
 import (
 	"groupie-tracker/models"
+	"sync"
 )
 
+// fetchDetailsConcurrently handles fetching locations, relations, and dates concurrently
+func fetchDetailsConcurrently(artist *models.Artist) (locations *models.Location, relations *models.Relation, dates *models.Date, err error) {
+	var wg sync.WaitGroup
+
+	// Define error variables for each fetch
+	var locErr, relErr, dateErr error
+
+	// Fetch locations
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		locations, locErr = Fetch_locations(artist.Locations)
+	}()
+
+	// Fetch relations
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		relations, relErr = Fetch_Relations(artist.Relations)
+	}()
+
+	// Fetch dates
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		dates, dateErr = Fetch_Dates(artist.ConcertDate)
+	}()
+
+	// Wait for all goroutines to finish
+	wg.Wait()
+
+	// Check for any errors from goroutines
+	if locErr != nil {
+		return nil, nil, nil, locErr
+	}
+	if relErr != nil {
+		return nil, nil, nil, relErr
+	}
+	if dateErr != nil {
+		return nil, nil, nil, dateErr
+	}
+
+	return locations, relations, dates, nil
+}
+
+// FetchDetails retrieves details for an artist
 func FetchDetails(id string) (*models.Artist_Details, error) {
-	//var artist_details *models.Artist_Details
 	artist, err := GetArtistByID(id)
 	if err != nil {
 		return nil, err
-
 	}
 
-	locations, err := Fetch_locations(artist.Locations)
+	// Fetch locations, relations, and dates concurrently
+	locations, relations, dates, err := fetchDetailsConcurrently(artist)
 	if err != nil {
-
-		return nil, err
-	}
-
-	relations, err := Fetch_Relations(artist.Relations)
-	if err != nil {
-
-		return nil, err
-	}
-
-	dates, err := Fetch_Dates(artist.ConcertDate)
-	if err != nil {
-
 		return nil, err
 	}
 
@@ -41,5 +74,4 @@ func FetchDetails(id string) (*models.Artist_Details, error) {
 		ConcertDate:    dates.Dates,
 		DatesLocations: relations.DatesLocations,
 	}, nil
-
 }

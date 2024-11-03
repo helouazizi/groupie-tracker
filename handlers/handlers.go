@@ -85,7 +85,8 @@ func ArtistDetails(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	artist_details, err := api.FetchDetails(id) // Get the artist details
 	if err != nil {
-		http.Error(w, "Artist not found", http.StatusNotFound)
+		w.WriteHeader(http.StatusBadRequest)
+		pages.ErrorPage.Execute(w, "BAD REQUEST")
 		return
 	}
 

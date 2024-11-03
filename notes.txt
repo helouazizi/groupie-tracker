@@ -19,3 +19,4 @@ notes.txt
 ## Implement Caching `Server-Side Caching` or `client-Side Caching`
 ##  Use Server-Side Rendering (SSR) or Static Site Generation (SSG)
 ## testing
+## os threads vs go routines
