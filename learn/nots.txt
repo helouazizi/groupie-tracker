@@ -20,10 +20,5 @@ system resources, which can lead to vulnerabilities if not properly managed.
  to sensitive data.
 
 
-<<<<<<< HEAD
 0x253 Assembly Language
-######## endpoint (0x253 Assembly Language)
-=======
-
-######## 0x281 File Access
->>>>>>> refs/remotes/origin/main
+######## 0x330 Experimenting with BASH
