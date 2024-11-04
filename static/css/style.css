@@ -12,12 +12,51 @@ body {
   font-family: "Arial", sans-serif;
 }
 
+a{
+  text-decoration: none;
+  
+}
+
 header {
-  text-align: center;
-  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 10%;
   background-color: #555539;
   color: #ffffff;
   box-shadow: 0 4px 20px rgba(255, 193, 7, 0.5);
+}
+header .logo {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #8f4ef8;
+  font-weight: bolder;
+  text-shadow: 2px 2px 20px rgba(85, 80, 80, 0.5);
+  pre {
+    font: 50px sans-serif;
+    color: #000;
+    font-weight: bolder;
+  }
+}
+
+header .authors{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+    background-color: #463030;
+    border: 2px solid #000;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 0px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 }
 
 .container {
