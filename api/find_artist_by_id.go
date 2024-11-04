@@ -9,7 +9,7 @@ import (
 
 func GetArtistByID(id string) (*models.Artist, error) {
 	ids, _ := strconv.Atoi(id)
-	for _, artist := range *Artists { // 'artists' is a slice of Artist structs
+	for _, artist := range Artists { // 'artists' is a slice of Artist structs
 		if artist.ID == ids {
 			return &artist, nil
 		}
