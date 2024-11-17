@@ -2,17 +2,16 @@
 package api
 
 import (
-	"groupie-tracker/models"
 	"sync"
+
+	"groupie-tracker/models"
 )
 
 // fetchDetailsConcurrently handles fetching locations, relations, and dates concurrently
 func fetchDetailsConcurrently(artist *models.Artist) (locations *models.Location, relations *models.Relation, dates *models.Date, err error) {
 	var wg sync.WaitGroup
-
 	// Define error variables for each fetch
 	var locErr, relErr, dateErr error
-
 	// Fetch locations
 	wg.Add(1)
 	go func() {

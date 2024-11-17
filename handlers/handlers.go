@@ -2,10 +2,12 @@
 package handlers
 
 import (
-	"groupie-tracker/api"
 	"log"
 	"net/http"
+	"os"
 	"text/template"
+
+	"groupie-tracker/api"
 )
 
 type Pages struct {
@@ -27,7 +29,6 @@ func init() {
 		log.Fatalf("Error parsing template: %v", err)
 	}
 	pages.ErrorPage, err = template.ParseFiles("templates/error.html")
-
 	if err != nil {
 		log.Fatalf("Error parsing template: %v", err)
 	}
@@ -53,14 +54,13 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Error executing template: %v", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
-
 }
 
 /*
 lets serve our static folder for any assets request
 */
 func ServStatic(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path == "/static/" || r.URL.Path == "/static" {
+	if r.URL.Path == "/static/" || r.URL.Path == "/static/css" {
 		w.WriteHeader(http.StatusNotFound)
 		pages.ErrorPage.Execute(w, "NOT FOUND")
 		return
@@ -70,8 +70,13 @@ func ServStatic(w http.ResponseWriter, r *http.Request) {
 		pages.ErrorPage.Execute(w, "METHOD NOT ALLOWED")
 		return
 	}
+	_, err := os.Stat(r.URL.Path[1:])
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		pages.ErrorPage.Execute(w, "NOT FOUND")
+		return
+	}
 	http.StripPrefix("/static", http.FileServer(http.Dir("static"))).ServeHTTP(w, r)
-
 }
 
 func ArtistDetails(w http.ResponseWriter, r *http.Request) {
@@ -94,7 +99,6 @@ func ArtistDetails(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Error executing template: %v", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
-
 }
 
 /*
