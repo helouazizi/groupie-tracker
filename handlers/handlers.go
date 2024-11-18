@@ -51,8 +51,9 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	artists := api.Artists
 
 	if err := pages.homePage.Execute(w, artists); err != nil {
-		log.Printf("Error executing template: %v", err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
+		pages.ErrorPage.Execute(w, "Internal server error")
+		return
 	}
 }
 
