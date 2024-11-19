@@ -61,7 +61,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 lets serve our static folder for any assets request
 */
 func ServStatic(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path == "/static/" || r.URL.Path == "/static/css" {
+	if r.URL.Path == "/static/" || r.URL.Path == "/static/css" || r.URL.Path == "/static/css/" {
 		w.WriteHeader(http.StatusNotFound)
 		pages.ErrorPage.Execute(w, "NOT FOUND")
 		return

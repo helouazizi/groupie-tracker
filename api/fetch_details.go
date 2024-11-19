@@ -17,6 +17,7 @@ func fetchDetailsConcurrently(artist *models.Artist) (locations *models.Location
 	go func() {
 		defer wg.Done()
 		locations, locErr = Fetch_locations(artist.Locations)
+		
 	}()
 
 	// Fetch relations
@@ -52,6 +53,8 @@ func fetchDetailsConcurrently(artist *models.Artist) (locations *models.Location
 
 // FetchDetails retrieves details for an artist
 func FetchDetails(id string) (*models.Artist_Details, error) {
+	// you can use this methods
+	//fmt.Println(Artists[ids-1])
 	artist, err := GetArtistByID(id)
 	if err != nil {
 		return nil, err
