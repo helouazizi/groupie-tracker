@@ -2,6 +2,8 @@
 package api
 
 import (
+	"fmt"
+	"strconv"
 	"sync"
 
 	"groupie-tracker/models"
@@ -13,22 +15,21 @@ func fetchDetailsConcurrently(artist *models.Artist) (locations *models.Location
 	// Define error variables for each fetch
 	var locErr, relErr, dateErr error
 	// Fetch locations
-	wg.Add(1)
+	wg.Add(3)
 	go func() {
 		defer wg.Done()
 		locations, locErr = Fetch_locations(artist.Locations)
-		
 	}()
 
 	// Fetch relations
-	wg.Add(1)
+	
 	go func() {
 		defer wg.Done()
 		relations, relErr = Fetch_Relations(artist.Relations)
 	}()
 
 	// Fetch dates
-	wg.Add(1)
+
 	go func() {
 		defer wg.Done()
 		dates, dateErr = Fetch_Dates(artist.ConcertDate)
@@ -54,14 +55,17 @@ func fetchDetailsConcurrently(artist *models.Artist) (locations *models.Location
 // FetchDetails retrieves details for an artist
 func FetchDetails(id string) (*models.Artist_Details, error) {
 	// you can use this methods
-	//fmt.Println(Artists[ids-1])
-	artist, err := GetArtistByID(id)
-	if err != nil {
-		return nil, err
+	// fmt.Println(Artists[ids-1])
+	artist := models.Artist{}
+	ids, err := strconv.Atoi(id)
+	if err == nil && ids > 0 && ids < len(Artists) {
+		artist = Artists[ids-1]
+	} else {
+		return nil, fmt.Errorf("artist not found")
 	}
 
 	// Fetch locations, relations, and dates concurrently
-	locations, relations, dates, err := fetchDetailsConcurrently(artist)
+	locations, relations, dates, err := fetchDetailsConcurrently(&artist)
 	if err != nil {
 		return nil, err
 	}

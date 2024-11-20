@@ -97,8 +97,9 @@ func ArtistDetails(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := pages.Artistpage.Execute(w, artist_details); err != nil {
-		log.Printf("Error executing template: %v", err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
+		pages.ErrorPage.Execute(w, "Internal server error")
+		return
 	}
 }
 
