@@ -72,7 +72,7 @@
     <script>
         async function fetchArtists() {
             try {
-                let response = await fetch("https://groupietrackers.herokuapp.com/api/artists");
+                let response = await fetch("http://localhost:8080/");
                 let artists = await response.json();
                 let grid = document.getElementById("artistsGrid");
                 artists.forEach(artist => {
