@@ -41,8 +41,10 @@ function filterArtists() {
 // this function to get the artist details
 async function artistDeatils(id) {
     try {
-        let response = await fetch(`http://localhost:8080/artist/id=${id}`);
+        let response = await fetch(`http://localhost:8080/artist?id=${id}`);
         let artist = await response.json();
+        //console.log(artist);
+        
         let grid = document.getElementById("artistsGrid");
         grid.innerHTML = "";
         let card = document.createElement("div");

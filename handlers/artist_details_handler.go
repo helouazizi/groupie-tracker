@@ -31,9 +31,11 @@ func (h *Artist_Deatils) Artist_Deatil(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Artist not found", http.StatusNotFound)
 		return
 	}
+	fmt.Println(artist)
 
 	// Respond with JSON
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*") // Fix CORS issues
 	if err := json.NewEncoder(w).Encode(artist); err != nil {
 		log.Println("Error encoding JSON:", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)

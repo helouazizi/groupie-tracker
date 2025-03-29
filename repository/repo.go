@@ -58,6 +58,6 @@ func (s *Store) GetArtistByID(id string) (models.Artist, bool) {
 	if err != nil {
 		return models.Artist{}, false
 	}
-	artist := s.Artists[idint]
+	artist := s.Artists[idint-1]
 	return artist, true
 }
