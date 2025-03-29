@@ -40,26 +40,23 @@ function filterArtists() {
 
 // this function to get the artist details
 async function artistDeatils(id) {
-    // try {
-    //     let response = await fetch(`http://localhost:8080/artist/id=${id}`);
-    //     let artists = await response.json();
-    let grid = document.getElementById("artistsGrid");
-    grid.innerHTML = "deatils";
-    // artists.forEach(artist => {
-    //     let card = document.createElement("div");
-    //     card.classList.add("card");
-    //     card.setAttribute("id",artist.id)
-    //     card.innerHTML = `
-    //         <img src="${artist.image}" alt="${artist.name}">
-    //         <div class="card-content">
-    //             <h3>${artist.name}</h3>
-    //         </div>
-    //     `;
-    //     grid.appendChild(card);
-    // });
-    // } catch (error) {
-    //     console.error("Error fetching artists:", error);
-    // } 
+    try {
+        let response = await fetch(`http://localhost:8080/artist/id=${id}`);
+        let artist = await response.json();
+        let grid = document.getElementById("artistsGrid");
+        grid.innerHTML = "";
+        let card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `
+            <img src="${artist.image}" alt="${artist.name}">
+            <div class="card-content">
+                <h3>${artist.name}</h3>
+            </div>
+        `;
+        grid.appendChild(card);
+    } catch (error) {
+        console.error("Error fetching artists:", error);
+    }
 }
 
 

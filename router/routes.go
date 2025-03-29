@@ -8,7 +8,9 @@ import (
 
 func NewRouter(s *repository.Store) *http.ServeMux {
 	mux := http.NewServeMux()
-	toHandle := &handlers.Home_handler{Store: s}
-	mux.HandleFunc("/", toHandle.Home)
+	all := &handlers.Home_handler{Store: s}
+	deatils := &handlers.Artist_Deatils{Store: s}
+	mux.HandleFunc("/", all.Home)
+	mux.HandleFunc("/artist", deatils.Artist_Deatil)
 	return mux
 }
