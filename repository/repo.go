@@ -43,5 +43,11 @@ func (s *Store) LoadData() {
 	if err = json.Unmarshal(content, &s.Artists); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(s.Artists[0])
+	fmt.Println(s.Artists[0].Name)
+}
+
+func (s *Store) GetArtists() []models.Artist {
+	s.Mutex.Lock()
+	defer s.Mutex.Unlock()
+	return s.Artists
 }
