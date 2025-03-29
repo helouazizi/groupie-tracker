@@ -13,6 +13,9 @@
     padding: 0;
     font-family: Arial, sans-serif;
 }
+a {
+    text-decoration: none;
+}
 
 body {
     background-color: var(--bg-light);
@@ -108,6 +111,20 @@ body {
 
 .card h3 {
     font-size: 1.2em;
+}
+.card button {
+    width: 90%;
+    /* margin: 0 5px; */
+    padding: 5px;
+    margin: 5px;
+    border: none;
+    background-color: darkgrey;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.card button:hover{
+    background-color: rgb(27, 27, 27);
+    color: whitesmoke;
 }
 
 .dark-mode {

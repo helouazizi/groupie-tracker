@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 	"sync"
 )
 
@@ -50,4 +51,13 @@ func (s *Store) GetArtists() []models.Artist {
 	s.Mutex.Lock()
 	defer s.Mutex.Unlock()
 	return s.Artists
+}
+
+func (s *Store) GetArtistByID(id string) (models.Artist, bool) {
+	idint, err := strconv.Atoi(id)
+	if err != nil {
+		return models.Artist{}, false
+	}
+	artist := s.Artists[idint]
+	return artist, true
 }
