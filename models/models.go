@@ -6,7 +6,7 @@ type Artist struct {
 	Image        string   `json:"image"`
 	// Members      []string `json:"members"`
 	// FirstAlbum   string   `json:"firstAlbum"`
-	// CreationYear int      `json:"creationYear"`
+	// CreationDate int      `json:"creationDate"`
 }
 
 // type Location struct {
