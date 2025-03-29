@@ -10,5 +10,7 @@ type Artist_Deatils struct {
 }
 
 func (s *Artist_Deatils) Artist_Deatil(w http.ResponseWriter, r *http.Request) {
+	// lets get the id
+	id := r.Header.Get("id")
 	
 }
