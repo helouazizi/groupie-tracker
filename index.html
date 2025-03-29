@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
             padding: 0;
             font-family: Arial, sans-serif;
         }
+
         body {
             background-color: #f4f4f4;
             display: flex;
@@ -19,17 +21,20 @@
             min-height: 100vh;
             flex-direction: column;
         }
+
         .container {
             max-width: 1200px;
             width: 100%;
             padding: 20px;
         }
+
         .grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
         }
+
         .card {
             background: white;
             border-radius: 10px;
@@ -38,22 +43,27 @@
             width: 280px;
             transition: transform 0.3s;
         }
+
         .card:hover {
             transform: scale(1.05);
         }
+
         .card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
         }
+
         .card-content {
             padding: 15px;
             text-align: center;
         }
+
         .card h3 {
             font-size: 1.2em;
             color: #333;
         }
+
         @media (max-width: 600px) {
             .grid {
                 flex-direction: column;
@@ -62,6 +72,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1 style="text-align: center; margin-bottom: 20px;">Artists</h1>
@@ -76,12 +87,14 @@
                 let artists = await response.json();
                 let grid = document.getElementById("artistsGrid");
                 artists.forEach(artist => {
+                    console.log(artist);
+                    
                     let card = document.createElement("div");
                     card.classList.add("card");
                     card.innerHTML = `
-                        <img src="${artist.Image}" alt="${artist.Name}">
+                        <img src="${artist.image}" alt="${artist.name}">
                         <div class="card-content">
-                            <h3>${artist.Name}</h3>
+                            <h3>${artist.name}</h3>
                         </div>
                     `;
                     grid.appendChild(card);
@@ -93,4 +106,5 @@
         fetchArtists();
     </script>
 </body>
+
 </html>
