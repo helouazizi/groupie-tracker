@@ -31,11 +31,37 @@ function toggleDarkMode() {
 function filterArtists() {
     let input = document.getElementById("search").value.toLowerCase();
     let cards = document.querySelectorAll(".card");
+    let suggestionsBox = document.getElementById("suggestions");
+    suggestionsBox.innerHTML = ""; // Clear previous suggestions
+
+    let suggestions = [];
+
     cards.forEach(card => {
         let name = card.querySelector("h3").innerText.toLowerCase();
-        card.style.display = name.includes(input) ? "block" : "none";
+        if (name.includes(input)) {
+            card.style.display = "block";
+            suggestions.push(name);
+        } else {
+            card.style.display = "none";
+        }
     });
+
+    // Show suggestions below input
+    if (input.length > 0) {
+        suggestions.forEach(suggestion => {
+            let suggestionItem = document.createElement("div");
+            suggestionItem.classList.add("suggestion-item");
+            suggestionItem.innerText = suggestion;
+            suggestionItem.onclick = function () {
+                document.getElementById("search").value = suggestion;
+                suggestionsBox.innerHTML = ""; // Clear suggestions
+                filterArtists(); // Filter based on selected suggestion
+            };
+            suggestionsBox.appendChild(suggestionItem);
+        });
+    }
 }
+
 
 
 async function artistDeatils(id) {
