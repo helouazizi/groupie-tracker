@@ -5,6 +5,12 @@
     --text-dark: #f4f4f4;
     --card-bg-light: white;
     --card-bg-dark: #2c2c2c;
+    --primary-color: #007bff;
+    --secondary-color: #555;
+    --button-bg: #007bff;
+    --button-hover-bg: #0056b3;
+    --border-radius: 8px;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Universal Styling */
@@ -12,7 +18,13 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
+}
+a {
+    text-decoration: none;
+}
+ul li {
+    list-style: none;
 }
 
 body {
@@ -25,10 +37,6 @@ body {
     min-height: 100vh;
     transition: background 0.3s, color 0.3s;
     padding-top: 80px; /* Adjust for fixed header */
-}
-
-a {
-    text-decoration: none;
 }
 
 /* Fixed Header */
@@ -83,7 +91,6 @@ a {
     width: 100%;
     text-align: center;
     display: flex;
-    align-items: center;
     justify-content: center; /* Center the grid horizontally */
 }
 
@@ -96,10 +103,10 @@ a {
     width: 100%;
 }
 
-/* Card styling */
+/* Card Styling */
 .card {
     background: var(--card-bg-light);
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     width: 100%;
@@ -124,12 +131,12 @@ a {
 .card h3 {
     font-size: 1.2em;
     margin-top: 10px;
-    color: #333;
+    color: var(--text-light);
 }
 
 .card p {
     font-size: 0.9em;
-    color: #555;
+    color: var(--secondary-color);
 }
 
 /* Details Styling */
@@ -139,8 +146,8 @@ a {
 }
 
 .details-section h4 {
-    font-size: 1.1em;
-    color: #007bff;
+    font-size: 1.2em;
+    color: var(--primary-color);
     margin-bottom: 10px;
 }
 
@@ -152,6 +159,30 @@ a {
 .details-section li {
     list-style-type: square;
     margin-bottom: 5px;
+    font-size: 1em;
+    color: var(--secondary-color);
+}
+
+.details-section li:last-child {
+    margin-bottom: 0;
+}
+
+/* Button Styling for Details */
+.card button {
+    padding: 5px;
+    width: 90%;
+    font-size: 1em;
+    background-color: rgb(90, 86, 86);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg);
 }
 
 /* Dark Mode Styling */
@@ -160,6 +191,7 @@ a {
     --text-light: #f4f4f4;
     --card-bg-light: #2c2c2c;
     --card-bg-dark: #333;
+    --primary-color: #1E90FF;
 }
 
 /* Media Queries */
@@ -190,7 +222,7 @@ a {
     }
 
     .details-section h4 {
-        font-size: 1em;
+        font-size: 1.1em;
     }
 }
 
@@ -200,6 +232,6 @@ a {
     }
 
     .details-section h4 {
-        font-size: 0.9em;
+        font-size: 1em;
     }
 }
