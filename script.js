@@ -42,66 +42,78 @@ async function artistDeatils(id) {
     try {
         let response = await fetch(`http://localhost:8080/artist?id=${id}`);
         let data = await response.json();
-
+        
         let artist = data.artist;
         let locationData = data.locationData;
         let concertData = data.concertData;
         let relationData = data.relationData;
 
+        // Ensure locationData.locations is an array
         let locations = locationData.locations || [];
-        if (!Array.isArray(locations)) {
-            locations = [];
-            console.warn("Location data is not an array, defaulting to an empty array.");
-        }
 
         let grid = document.getElementById("artistsGrid");
         grid.innerHTML = ""; // Clear the grid
 
-        // Main Artist Card
-        let card = document.createElement("div");
-        card.classList.add("card");
-        card.innerHTML = `
-            <div class="card-header">
-                <img class="artist-image" src="${artist.image}" alt="${artist.name}">
-                <h3 class="artist-name">${artist.name}</h3>
-            </div>
-            <div class="card-body">
-                <button class="expand-details" onclick="toggleDetails(event)">Show Details</button>
-                <div class="details" style="display:none;">
-                    <div class="details-section">
-                        <h4>First Album</h4>
-                        <p>${artist.firstAlbum}</p>
-                    </div>
-                    <div class="details-section">
-                        <h4>Creation Date</h4>
-                        <p>${artist.creationDate}</p>
-                    </div>
-                    <div class="details-section">
-                        <h4>Members</h4>
-                        <ul>${artist.members.map(member => `<li>${member}</li>`).join('')}</ul>
-                    </div>
-                    <div class="details-section">
-                        <h4>Locations</h4>
-                        <ul>${locations.length > 0 ? locations.map(location => `<li>${location}</li>`).join('') : '<li>No locations available</li>'}</ul>
-                    </div>
-                    <div class="details-section">
-                        <h4>Concert Dates</h4>
-                        <ul>${concertData.dates ? concertData.dates.map(concert => `<li>${concert}</li>`).join('') : '<li>No concert data available</li>'}</ul>
-                    </div>
-                    <div class="details-section">
-                        <h4>Relations</h4>
-                        <ul>${relationData.datesLocations ? Object.keys(relationData.datesLocations).map(location => {
-                            return `<li>${location}: ${relationData.datesLocations[location].join(', ')}</li>`;
-                        }).join('') : '<li>No relation data available</li>'}</ul>
-                    </div>
-                </div>
+        // Artist Card
+        let artistCard = document.createElement("div");
+        artistCard.classList.add("card");
+        artistCard.innerHTML = `
+            <img src="${artist.image}" alt="${artist.name}">
+            <div class="card-content">
+                <h3>${artist.name}</h3>
+                <p>First Album: ${artist.firstAlbum}</p>
+                <p>Creation Date: ${artist.creationDate}</p>
             </div>
         `;
-        grid.appendChild(card);
+        grid.appendChild(artistCard);
+
+        // Locations Card
+        if (locations.length > 0) {
+            let locationCard = document.createElement("div");
+            locationCard.classList.add("card");
+            locationCard.innerHTML = `
+                <div class="card-content">
+                    <h3>Locations</h3>
+                    <ul>
+                        ${locations.map(location => `<li>${location}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            grid.appendChild(locationCard);
+        }
+
+        // Concert Dates Card
+        let concertCard = document.createElement("div");
+        concertCard.classList.add("card");
+        concertCard.innerHTML = `
+            <div class="card-content">
+                <h3>Concert Dates</h3>
+                <ul>
+                    ${concertData.dates ? concertData.dates.map(concert => `<li>${concert}</li>`).join('') : '<li>No concert data available</li>'}
+                </ul>
+            </div>
+        `;
+        grid.appendChild(concertCard);
+
+        // Relations Card
+        let relationCard = document.createElement("div");
+        relationCard.classList.add("card");
+        relationCard.innerHTML = `
+            <div class="card-content">
+                <h3>Relations</h3>
+                <ul>
+                    ${relationData.datesLocations ? Object.keys(relationData.datesLocations).map(location => {
+                        return `<li>${location}: ${relationData.datesLocations[location].join(', ')}</li>`;
+                    }).join('') : '<li>No relation data available</li>'}
+                </ul>
+            </div>
+        `;
+        grid.appendChild(relationCard);
     } catch (error) {
         console.error("Error fetching artist details:", error);
     }
 }
+
 
 // Function to toggle visibility of the details
 function toggleDetails(event) {

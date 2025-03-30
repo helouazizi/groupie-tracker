@@ -7,14 +7,12 @@
     --card-bg-dark: #2c2c2c;
 }
 
+/* Universal Styling */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-}
-a {
-    text-decoration: none;
 }
 
 body {
@@ -23,23 +21,29 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 100vh;
     padding: 20px;
+    min-height: 100vh;
     transition: background 0.3s, color 0.3s;
+    padding-top: 80px; /* Adjust for fixed header */
 }
 
+a {
+    text-decoration: none;
+}
+
+/* Fixed Header */
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--card-bg-light);
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    padding: 10px 20px;
-    background: var(--card-bg-light);
-    border-radius: 10px;
+    z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
 }
 
 .logo {
@@ -72,26 +76,34 @@ body {
     background: #555;
 }
 
+/* Container for the content */
 .container {
+    margin-top: 100px; /* Offset for the fixed header */
     max-width: 1200px;
     width: 100%;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the grid horizontally */
 }
 
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
+    justify-items: center;
     margin-top: 20px;
+    width: 100%;
 }
 
+/* Card styling */
 .card {
     background: var(--card-bg-light);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    width: 280px;
+    width: 100%;
+    max-width: 280px;
     transition: transform 0.3s, background 0.3s;
 }
 
@@ -111,28 +123,46 @@ body {
 
 .card h3 {
     font-size: 1.2em;
-}
-.card button {
-    width: 90%;
-    /* margin: 0 5px; */
-    padding: 5px;
-    margin: 5px;
-    border: none;
-    background-color: darkgrey;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.card button:hover{
-    background-color: rgb(27, 27, 27);
-    color: whitesmoke;
+    margin-top: 10px;
+    color: #333;
 }
 
+.card p {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Details Styling */
+.details-section {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.details-section h4 {
+    font-size: 1.1em;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.details-section ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.details-section li {
+    list-style-type: square;
+    margin-bottom: 5px;
+}
+
+/* Dark Mode Styling */
 .dark-mode {
     --bg-light: #1e1e1e;
     --text-light: #f4f4f4;
     --card-bg-light: #2c2c2c;
+    --card-bg-dark: #333;
 }
 
+/* Media Queries */
 @media (max-width: 600px) {
     .header {
         flex-direction: column;
@@ -144,102 +174,32 @@ body {
         width: 100%;
         margin: 10px 0;
     }
+
+    .dark-mode-btn {
+        width: 100%;
+    }
 }
 
-
-/* ///////////////////////////////////////// */
-/* General Styling */
-.card {
-    max-width: 400px;
-    margin: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-    text-align: center;
-    padding: 20px;
-    background-color: #f8f8f8;
-}
-
-.artist-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-.artist-name {
-    font-size: 1.5em;
-    margin-top: 10px;
-    color: #333;
-}
-
-.card-body {
-    padding: 20px;
-}
-
-.expand-details {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 1em;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.expand-details:hover {
-    background-color: #0056b3;
-}
-
-.details {
-    margin-top: 20px;
-}
-
-.details-section {
-    margin-bottom: 15px;
-}
-
-.details-section h4 {
-    font-size: 1.1em;
-    color: #007bff;
-}
-
-.details-section ul {
-    padding-left: 20px;
-}
-
-.details-section li {
-    list-style-type: square;
-    margin-bottom: 5px;
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
     .card {
-        width: 100%;
+        max-width: 100%;
     }
 
-    .card-header {
-        padding: 15px;
-    }
-
-    .expand-details {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    .artist-name {
-        font-size: 1.2em;
+    .card-content {
+        padding: 12px;
     }
 
     .details-section h4 {
         font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .card h3 {
+        font-size: 1em;
+    }
+
+    .details-section h4 {
+        font-size: 0.9em;
     }
 }
