@@ -107,10 +107,6 @@ function filterArtists() {
     }
 }
 
-
-
-
-
 async function artistDeatils(id) {
     try {
         let response = await fetch(`http://localhost:8080/artist?id=${id}`);
