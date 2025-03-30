@@ -16,6 +16,11 @@ async function fetchArtists() {
                     <p class ="first-album" style="display:none">First Album: ${artist.firstAlbum}</p>
                     <p class ="creation-date" style="display:none">Creation Date: ${artist.creationDate}</p>
                 </div>
+                <div class="members" style="display:none">
+                    <ul>
+                       ${artist.members.map(member => `<li>${member}</li>`).join('')}
+                     </ul>
+                </div>
                 
                 <button onclick="artistDeatils(${artist.id})">Details</button>
             `;
