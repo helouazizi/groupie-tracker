@@ -21,7 +21,11 @@ async function fetchArtists() {
                        ${artist.members.map(member => `<li>${member}</li>`).join('')}
                      </ul>
                 </div>
-                
+                <div class="locations" style="display:none">
+                    <ul>
+                       ${artist.LocationArray.map(loc => `<li>${loc}</li>`).join('')}
+                     </ul>
+                </div>
                 <button onclick="artistDeatils(${artist.id})">Details</button>
             `;
             grid.appendChild(card);
