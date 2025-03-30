@@ -2,12 +2,12 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"groupie-tracker/api"
 	"groupie-tracker/models"
 	"groupie-tracker/repository"
 	"log"
 	"net/http"
+	"sync"
 )
 
 type Artist_Deatils struct {
@@ -15,11 +15,6 @@ type Artist_Deatils struct {
 }
 
 func (h *Artist_Deatils) Artist_Deatil(w http.ResponseWriter, r *http.Request) {
-	//	// lets get the id
-	//	id := r.Header.Get("id")
-	//
-	path := r.URL
-	fmt.Println(path)
 	// Extract ID from query parameters
 	id := r.URL.Query().Get("id")
 	if id == "" {
@@ -33,28 +28,34 @@ func (h *Artist_Deatils) Artist_Deatil(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Artist not found", http.StatusNotFound)
 		return
 	}
-	// Fetch additional data from the provided API URLs
+
+	// Define variables to hold fetched data
 	var locationData, concertData, relationData interface{}
+	var wg sync.WaitGroup
 
-	// Fetch locations data
-	if err := api.Fetch(artist.Locations, &locationData); err != nil {
-		log.Println("Error fetching locations:", err)
-	}
-	// Fetch concert dates data
-	if err := api.Fetch(artist.ConcertDates, &concertData); err != nil {
-		log.Println("Error fetching concert dates:", err)
-	}
-	// Fetch relations data
-	if err := api.Fetch(artist.Relations, &relationData); err != nil {
-		log.Println("Error fetching relations:", err)
+	// Function to fetch data
+	fetchData := func(url string, target interface{}) {
+		defer wg.Done()
+		if err := api.Fetch(url, target); err != nil {
+			log.Println("Error fetching data:", err)
+		}
 	}
 
-	// Extend artist data with the fetched data
+	// Concurrently fetch data
+	wg.Add(3)
+	go fetchData(artist.Locations, &locationData)
+	go fetchData(artist.ConcertDates, &concertData)
+	go fetchData(artist.Relations, &relationData)
+
+	// Wait for all fetch operations to complete
+	wg.Wait()
+
+	// Combine artist and fetched data into a response
 	extendedArtist := struct {
 		Artist   models.Artist `json:"artist"`
-		Location interface{}    `json:"locationData"`
-		Concert  interface{}    `json:"concertData"`
-		Relation interface{}    `json:"relationData"`
+		Location interface{}   `json:"locationData"`
+		Concert  interface{}   `json:"concertData"`
+		Relation interface{}   `json:"relationData"`
 	}{
 		Artist:   artist,
 		Location: locationData,
@@ -70,5 +71,4 @@ func (h *Artist_Deatils) Artist_Deatil(w http.ResponseWriter, r *http.Request) {
 		log.Println("Error encoding JSON:", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
-
 }
