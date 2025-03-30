@@ -49,10 +49,43 @@ function filterArtists() {
     let suggestions = [];
 
     cards.forEach(card => {
-        let name = card.querySelector("h3").innerText.toLowerCase();
+        let name = card.querySelector(".artist-name").innerText.toLowerCase();
+        let firstAlbum = card.querySelector(".first-album").innerText.toLowerCase().replace("first album: ", "");
+        let creationDate = card.querySelector(".creation-date").innerText.toLowerCase().replace("creation date: ", "");
+        let members = Array.from(card.querySelectorAll(".members li")).map(member => member.innerText.toLowerCase());
+        let locations = Array.from(card.querySelectorAll(".locations li")).map(location => location.innerText.toLowerCase());
+
+        let matchedCategories = [];
+
+        // Check matches for each category
         if (name.includes(input)) {
+            matchedCategories.push({ text: card.querySelector(".artist-name").innerText, type: "artist/band" });
+        }
+        if (firstAlbum.includes(input)) {
+            matchedCategories.push({ text: firstAlbum, type: "first album date" });
+        }
+        if (creationDate.includes(input)) {
+            matchedCategories.push({ text: creationDate, type: "creation date" });
+        }
+        members.forEach(member => {
+            if (member.includes(input)) {
+                matchedCategories.push({ text: member, type: "member" });
+            }
+        });
+        locations.forEach(location => {
+            if (location.includes(input)) {
+                matchedCategories.push({ text: location, type: "location" });
+            }
+        });
+
+        if (matchedCategories.length > 0) {
             card.style.display = "block";
-            suggestions.push(name);
+            matchedCategories.forEach(match => {
+                let suggestionText = `${match.text} - ${match.type}`;
+                if (!suggestions.includes(suggestionText)) {
+                    suggestions.push(suggestionText);
+                }
+            });
         } else {
             card.style.display = "none";
         }
@@ -65,7 +98,7 @@ function filterArtists() {
             suggestionItem.classList.add("suggestion-item");
             suggestionItem.innerText = suggestion;
             suggestionItem.onclick = function () {
-                document.getElementById("search").value = suggestion;
+                document.getElementById("search").value = suggestion.split(" - ")[0];
                 suggestionsBox.innerHTML = ""; // Clear suggestions
                 filterArtists(); // Filter based on selected suggestion
             };
@@ -73,6 +106,8 @@ function filterArtists() {
         });
     }
 }
+
+
 
 
 
