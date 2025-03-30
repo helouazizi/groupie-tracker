@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Artists</title>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1 class="logo"><a href="/">G-Tracker</a></h1>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search artists..." onkeyup="searchArtists()">
+            <div id="suggestions"></div>
+        </div>
+        <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </div>
+    <div class="filters">
+        <div>
+            <label for="creationDateRange">Creation Date Range:</label>
+            <input type="text" id="creationDateRange" placeholder="e.g. 1990-2000">
+        </div>
+
+        <div>
+            <label for="firstAlbumRange">First Album Date Range:</label>
+            <input type="text" id="firstAlbumRange" placeholder="e.g. 1990-2000">
+        </div>
+
+        <div>
+            <label for="memberCount">Number of Members:</label>
+            <input type="number" id="memberCount" placeholder="e.g. 6">
+        </div>
+
+        <div>
+            <label for="locationFilter">Location:</label>
+            <input type="text" id="locationFilter" placeholder="e.g. Texas, USA">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="grid" id="artistsGrid"></div>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>
