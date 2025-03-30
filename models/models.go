@@ -1,15 +1,16 @@
 package models
 
 type Artist struct {
-	ID           int      `json:"id"`
-	Name         string   `json:"name"`
-	Image        string   `json:"image"`
-	Members      []string `json:"members"`
-	FirstAlbum   string   `json:"firstAlbum"`
-	CreationDate int      `json:"creationDate"`
-	Locations    string   `json:"locations"`    // api
-	ConcertDates string   `json:"concertDates"` // api
-	Relations    string   `json:"relations"`    // api
+	ID            int      `json:"id"`
+	Name          string   `json:"name"`
+	Image         string   `json:"image"`
+	Members       []string `json:"members"`
+	LocationArray []string
+	FirstAlbum    string `json:"firstAlbum"`
+	CreationDate  int    `json:"creationDate"`
+	Locations     string `json:"locations"`    // api
+	ConcertDates  string `json:"concertDates"` // api
+	Relations     string `json:"relations"`    // api
 }
 
 // type Location struct {

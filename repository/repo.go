@@ -2,7 +2,6 @@ package repository
 
 import (
 	"encoding/json"
-	"fmt"
 	"groupie-tracker/models"
 	"io"
 	"log"
@@ -19,6 +18,9 @@ import (
 type Store struct {
 	Artists []models.Artist
 	Mutex   sync.Mutex
+}
+type LocationsResponse struct {
+	Index []string `json:"locations"`
 }
 
 func New_Store() *Store {
@@ -44,7 +46,28 @@ func (s *Store) LoadData() {
 	if err = json.Unmarshal(content, &s.Artists); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(s.Artists[0].Name)
+	////////////////
+
+	for i, artist := range s.Artists {
+		//url1 := "https://groupietrackers.herokuapp.com/api/locations"
+		res, errr := http.Get(artist.Locations)
+		if errr != nil {
+			log.Fatal(err)
+		}
+		defer res.Body.Close()
+
+		contentt, err := io.ReadAll(res.Body)
+		if err != nil {
+			log.Fatal(err)
+		}
+		var locres LocationsResponse
+		// Unmarshal JSON into the struct
+		if err = json.Unmarshal(contentt, &locres); err != nil {
+			log.Fatal(err)
+		}
+		s.Artists[i].LocationArray = locres.Index
+	}
+
 }
 
 func (s *Store) GetArtists() []models.Artist {
