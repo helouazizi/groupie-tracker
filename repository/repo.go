@@ -78,7 +78,7 @@ func (s *Store) GetArtists() []models.Artist {
 
 func (s *Store) GetArtistByID(id string) (models.Artist, bool) {
 	idint, err := strconv.Atoi(id)
-	if err != nil {
+	if err != nil || idint < 1 || idint > len(s.Artists) {
 		return models.Artist{}, false
 	}
 	artist := s.Artists[idint-1]

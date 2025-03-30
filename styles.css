@@ -279,3 +279,23 @@ button:hover {
         font-size: 1em;
     }
 }
+.error {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid red;
+    background-color: #ffe6e6;
+    color: red;
+    margin: 20px;
+    border-radius: 5px;
+}
+.error button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.error button:hover {
+    background-color: darkred;
+}

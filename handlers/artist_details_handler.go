@@ -10,11 +10,11 @@ import (
 	"sync"
 )
 
-type Artist_Deatils struct {
+type ArtistDeatils struct {
 	Store *repository.Store
 }
 
-func (h *Artist_Deatils) Artist_Deatil(w http.ResponseWriter, r *http.Request) {
+func (h *ArtistDeatils) ArtistDetail(w http.ResponseWriter, r *http.Request) {
 	// Extract ID from query parameters
 	id := r.URL.Query().Get("id")
 	if id == "" {
@@ -32,12 +32,14 @@ func (h *Artist_Deatils) Artist_Deatil(w http.ResponseWriter, r *http.Request) {
 	// Define variables to hold fetched data
 	var locationData, concertData, relationData interface{}
 	var wg sync.WaitGroup
+	errChan := make(chan error, 3)
 
 	// Function to fetch data
 	fetchData := func(url string, target interface{}) {
 		defer wg.Done()
 		if err := api.Fetch(url, target); err != nil {
 			log.Println("Error fetching data:", err)
+			errChan <- err
 		}
 	}
 
@@ -49,6 +51,13 @@ func (h *Artist_Deatils) Artist_Deatil(w http.ResponseWriter, r *http.Request) {
 
 	// Wait for all fetch operations to complete
 	wg.Wait()
+	close(errChan)
+
+	// Check if any error occurred
+	if len(errChan) > 0 {
+		http.Error(w, "Failed to fetch artist details", http.StatusInternalServerError)
+		return
+	}
 
 	// Combine artist and fetched data into a response
 	extendedArtist := struct {
@@ -68,7 +77,7 @@ func (h *Artist_Deatils) Artist_Deatil(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*") // Fix CORS issues
 
 	if err := json.NewEncoder(w).Encode(extendedArtist); err != nil {
-		log.Println("Error encoding JSON:", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
 	}
 }

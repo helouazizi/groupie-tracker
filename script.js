@@ -2,6 +2,10 @@
 async function fetchArtists() {
     try {
         let response = await fetch("http://localhost:8080/");
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+            
+        }
         let artists = await response.json();
         let grid = document.getElementById("artistsGrid");
         grid.innerHTML = "";
@@ -26,12 +30,13 @@ async function fetchArtists() {
                        ${artist.LocationArray.map(loc => `<li>${loc}</li>`).join('')}
                      </ul>
                 </div>
-                <button onclick="artistDeatils(${artist.id})">Details</button>
+                <button onclick="artistDetails(${artist.id})">Details</button>
             `;
             grid.appendChild(card);
         });
     } catch (error) {
         console.error("Error fetching artists:", error);
+        showErrorPage(error.message);
     }
 }
 fetchArtists();
@@ -107,22 +112,38 @@ function filterArtists() {
     }
 }
 
-async function artistDeatils(id) {
+async function artistDetails(id) {
     try {
         let response = await fetch(`http://localhost:8080/artist?id=${id}`);
-        let data = await response.json();
 
+        // Handle non-OK responses immediately (e.g., 404 Not Found)
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+
+        // Parse JSON safely
+        let data;
+        try {
+            data = await response.json();
+        } catch (jsonError) {
+            throw new Error("Invalid JSON response from server");
+        }
+
+        // If the response doesn't contain the expected data, stop execution
+        if (!data || !data.artist) {
+            throw new Error("Artist data is missing or invalid");
+        }
+
+        // Extracting data safely
         let artist = data.artist;
-        let mumbers = artist.members
-        let locationData = data.locationData;
-        let concertData = data.concertData;
-        let relationData = data.relationData;
+        let members = artist.members || [];
+        let locationData = data.locationData || { locations: [] };
+        let concertData = data.concertData || { dates: [] };
+        let relationData = data.relationData || { datesLocations: {} };
 
-        // Ensure locationData.locations is an array
-        let locations = locationData.locations || [];
-
+        // Clear previous content
         let grid = document.getElementById("artistsGrid");
-        grid.innerHTML = ""; // Clear the grid
+        grid.innerHTML = "";
 
         // Artist Card
         let artistCard = document.createElement("div");
@@ -137,29 +158,30 @@ async function artistDeatils(id) {
         `;
         grid.appendChild(artistCard);
 
-        // Locations Card
-        if (mumbers.length > 0) {
-            let mumbercard = document.createElement("div");
-            mumbercard.classList.add("card");
-            mumbercard.innerHTML = `
+        // Members Card
+        if (members.length > 0) {
+            let memberCard = document.createElement("div");
+            memberCard.classList.add("card");
+            memberCard.innerHTML = `
                 <div class="card-content">
                     <h3>Members</h3>
                     <ul>
-                        ${mumbers.map(mumber => `<li>${mumber}</li>`).join('')}
+                        ${members.map(member => `<li>${member}</li>`).join('')}
                     </ul>
                 </div>
             `;
-            grid.appendChild(mumbercard);
+            grid.appendChild(memberCard);
         }
+
         // Locations Card
-        if (locations.length > 0) {
+        if (locationData.locations.length > 0) {
             let locationCard = document.createElement("div");
             locationCard.classList.add("card");
             locationCard.innerHTML = `
                 <div class="card-content">
                     <h3>Locations</h3>
                     <ul>
-                        ${locations.map(location => `<li>${location}</li>`).join('')}
+                        ${locationData.locations.map(location => `<li>${location}</li>`).join('')}
                     </ul>
                 </div>
             `;
@@ -173,7 +195,7 @@ async function artistDeatils(id) {
             <div class="card-content">
                 <h3>Concert Dates</h3>
                 <ul>
-                    ${concertData.dates ? concertData.dates.map(concert => `<li>${concert}</li>`).join('') : '<li>No concert data available</li>'}
+                    ${concertData.dates.length > 0 ? concertData.dates.map(concert => `<li>${concert}</li>`).join('') : '<li>No concert data available</li>'}
                 </ul>
             </div>
         `;
@@ -186,17 +208,35 @@ async function artistDeatils(id) {
             <div class="card-content">
                 <h3>Relations</h3>
                 <ul>
-                    ${relationData.datesLocations ? Object.keys(relationData.datesLocations).map(location => {
-            return `<li>${location}: ${relationData.datesLocations[location].join(', ')}</li>`;
-        }).join('') : '<li>No relation data available</li>'}
+                    ${Object.keys(relationData.datesLocations).length > 0 
+                        ? Object.keys(relationData.datesLocations).map(location => {
+                            return `<li>${location}: ${relationData.datesLocations[location].join(', ')}</li>`;
+                          }).join('')
+                        : '<li>No relation data available</li>'}
                 </ul>
             </div>
         `;
         grid.appendChild(relationCard);
     } catch (error) {
         console.error("Error fetching artist details:", error);
+        showErrorPage(error.message);
     }
 }
+
+
+
+function showErrorPage(message) {
+    let grid = document.getElementById("artistsGrid");
+    grid.innerHTML = `
+        <div class="error">
+            <h2>Oops! Something went wrong</h2>
+            <p>${message}</p>
+            <button><a href ="/">Back Home</a></button>
+        </div>
+    `;
+    return
+}
+
 
 
 
