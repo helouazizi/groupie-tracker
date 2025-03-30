@@ -11,6 +11,14 @@ type Home_handler struct {
 }
 
 func (h *Home_handler) Home(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	if r.URL.Path != "/" {
+		http.Error(w, "Page Not Found", http.StatusNotFound)
+		return
+	}
 	all_artist := h.Store.GetArtists()
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*") // Fix CORS issues
