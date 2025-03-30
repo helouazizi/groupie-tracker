@@ -12,9 +12,9 @@ async function fetchArtists() {
             card.innerHTML = `
                 <img src="${artist.image}" alt="${artist.name}">
                 <div class="card-content">
-                    <h3 >${artist.name}</h3>
-                    <p style="display:none">First Album: ${artist.firstAlbum}</p>
-                    <p style="display:none">Creation Date: ${artist.creationDate}</p>
+                    <h3 class ="artist-name">${artist.name}</h3>
+                    <p class ="first-album" style="display:none">First Album: ${artist.firstAlbum}</p>
+                    <p class ="creation-date" style="display:none">Creation Date: ${artist.creationDate}</p>
                 </div>
                 
                 <button onclick="artistDeatils(${artist.id})">Details</button>
