@@ -145,3 +145,101 @@ body {
         margin: 10px 0;
     }
 }
+
+
+/* ///////////////////////////////////////// */
+/* General Styling */
+.card {
+    max-width: 400px;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.artist-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.artist-name {
+    font-size: 1.5em;
+    margin-top: 10px;
+    color: #333;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.expand-details {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.expand-details:hover {
+    background-color: #0056b3;
+}
+
+.details {
+    margin-top: 20px;
+}
+
+.details-section {
+    margin-bottom: 15px;
+}
+
+.details-section h4 {
+    font-size: 1.1em;
+    color: #007bff;
+}
+
+.details-section ul {
+    padding-left: 20px;
+}
+
+.details-section li {
+    list-style-type: square;
+    margin-bottom: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        width: 100%;
+    }
+
+    .card-header {
+        padding: 15px;
+    }
+
+    .expand-details {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .artist-name {
+        font-size: 1.2em;
+    }
+
+    .details-section h4 {
+        font-size: 1em;
+    }
+}
