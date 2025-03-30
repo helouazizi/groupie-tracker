@@ -141,11 +141,11 @@ async function artistDeatils(id) {
 }
 
 
-// Function to toggle visibility of the details
-function toggleDetails(event) {
-    const details = event.target.closest('.card').querySelector('.details');
-    details.style.display = details.style.display === "none" ? "block" : "none";
-}
+// // Function to toggle visibility of the details
+// function toggleDetails(event) {
+//     const details = event.target.closest('.card').querySelector('.details');
+//     details.style.display = details.style.display === "none" ? "block" : "none";
+// }
 
 
 
