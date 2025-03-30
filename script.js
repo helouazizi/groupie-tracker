@@ -68,8 +68,9 @@ async function artistDeatils(id) {
     try {
         let response = await fetch(`http://localhost:8080/artist?id=${id}`);
         let data = await response.json();
-        
+
         let artist = data.artist;
+        let mumbers = artist.members
         let locationData = data.locationData;
         let concertData = data.concertData;
         let relationData = data.relationData;
@@ -93,6 +94,20 @@ async function artistDeatils(id) {
         `;
         grid.appendChild(artistCard);
 
+        // Locations Card
+        if (mumbers.length > 0) {
+            let mumbercard = document.createElement("div");
+            mumbercard.classList.add("card");
+            mumbercard.innerHTML = `
+                <div class="card-content">
+                    <h3>Members</h3>
+                    <ul>
+                        ${mumbers.map(mumber => `<li>${mumber}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            grid.appendChild(mumbercard);
+        }
         // Locations Card
         if (locations.length > 0) {
             let locationCard = document.createElement("div");
@@ -129,8 +144,8 @@ async function artistDeatils(id) {
                 <h3>Relations</h3>
                 <ul>
                     ${relationData.datesLocations ? Object.keys(relationData.datesLocations).map(location => {
-                        return `<li>${location}: ${relationData.datesLocations[location].join(', ')}</li>`;
-                    }).join('') : '<li>No relation data available</li>'}
+            return `<li>${location}: ${relationData.datesLocations[location].join(', ')}</li>`;
+        }).join('') : '<li>No relation data available</li>'}
                 </ul>
             </div>
         `;

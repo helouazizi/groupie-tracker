@@ -12,10 +12,10 @@ type Artist struct {
 	Relations    string   `json:"relations"`    // api
 }
 
-type Location struct {
-	ID        int      `json:"id"`
-	Locations []string `json:"locations"`
-}
+// type Location struct {
+// 	//ID        int      `json:"id"`
+// 	Locations []string `json:"locations"`
+// }
 
 // type Date struct {
 // 	ID    int      `json:"id"`
