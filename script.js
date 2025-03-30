@@ -12,8 +12,11 @@ async function fetchArtists() {
             card.innerHTML = `
                 <img src="${artist.image}" alt="${artist.name}">
                 <div class="card-content">
-                    <h3>${artist.name}</h3>
+                    <h3 >${artist.name}</h3>
+                    <p style="display:none">First Album: ${artist.firstAlbum}</p>
+                    <p style="display:none">Creation Date: ${artist.creationDate}</p>
                 </div>
+                
                 <button onclick="artistDeatils(${artist.id})">Details</button>
             `;
             grid.appendChild(card);
