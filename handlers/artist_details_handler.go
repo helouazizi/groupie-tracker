@@ -62,7 +62,7 @@ func (h *ArtistDeatils) ArtistDetail(w http.ResponseWriter, r *http.Request) {
 	extendedArtist := struct {
 		Artist   models.Artist   
 		Location models.Location 
-		Concert  models.Date     //`json:"concertData"`
+		Concert  models.Date     
 		Relation models.Relation //`json:"relationData"`
 	}{
 		Artist:   artist,
