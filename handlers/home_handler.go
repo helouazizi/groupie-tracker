@@ -14,7 +14,7 @@ func (h *Home_handler) Home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*") // Fix CORS issues
 	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
 	if r.URL.Path != "/" {
@@ -22,9 +22,8 @@ func (h *Home_handler) Home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	all_artist := h.Store.GetArtists()
-
-	//artists := h.Store.GetArtists() // Ensure this returns data
 	if err := json.NewEncoder(w).Encode(all_artist); err != nil {
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+		return
 	}
 }
