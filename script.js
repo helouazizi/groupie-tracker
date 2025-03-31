@@ -20,10 +20,6 @@ function displayArtists(artists) {
     artists.forEach(artist => {
         let card = document.createElement("div");
         card.classList.add("card");
-        // card.setAttribute("data-creation-date", artist.creationDate);
-        // card.setAttribute("data-first-album", artist.firstAlbum);
-        // card.setAttribute("data-members", artist.members.length);
-        // card.setAttribute("data-locations", artist.LocationArray.join(","));
         card.innerHTML = `
             <img src="${artist.image}" alt="${artist.name}">
             <div class="card-content">
@@ -161,116 +157,118 @@ function searchArtists() {
     }
 }
 
-// async function artistDetails(id) {
-//     try {
-//         let response = await fetch(`http://localhost:8080/artist?id=${id}`);
+async function artistDetails(id) {
+    try {
+        let response = await fetch(`http://localhost:8080/artist?id=${id}`);
 
-//         // Handle non-OK responses immediately (e.g., 404 Not Found)
-//         if (!response.ok) {
-//             throw new Error(`Error ${response.status}: ${response.statusText}`);
-//         }
+        // Handle non-OK responses immediately (e.g., 404 Not Found)
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
 
-//         // Parse JSON safely
-//         let data;
-//         try {
-//             data = await response.json();
-//         } catch (jsonError) {
-//             throw new Error("Invalid JSON response from server");
-//         }
+        // Parse JSON safely
+        let data;
+        try {
+            data = await response.json();
+        } catch (jsonError) {
+            throw new Error("Invalid JSON response from server");
+        }
 
-//         // If the response doesn't contain the expected data, stop execution
-//         if (!data || !data.artist) {
-//             throw new Error("Artist data is missing or invalid");
-//         }
+        // If the response doesn't contain the expected data, stop execution
+        if (!data) {
+            throw new Error("Artist data is missing or invalid");
+        }
+        console.log(data);
+        
 
-//         // Extracting data safely
-//         let artist = data.artist;
-//         let members = artist.members || [];
-//         let locationData = data.locationData || { locations: [] };
-//         let concertData = data.concertData || { dates: [] };
-//         let relationData = data.relationData || { datesLocations: {} };
+        // Extracting data safely
+        let artist = data.Artist;
+        let members = data.Artist.members || [];
+        let locationData = data.Locations || { Locations: [] };
+        let concertData = data.Dates || { Dates: [] };
+        let relationData = data.Relations || { Relations: {} };
 
-//         // Clear previous content
-//         let grid = document.getElementById("artistsGrid");
-//         grid.innerHTML = "";
+        // Clear previous content
+        let grid = document.getElementById("artistsGrid");
+        grid.innerHTML = "";
 
-//         // Artist Card
-//         let artistCard = document.createElement("div");
-//         artistCard.classList.add("card");
-//         artistCard.innerHTML = `
-//             <img src="${artist.image}" alt="${artist.name}">
-//             <div class="card-content">
-//                 <h3>${artist.name}</h3>
-//                 <p>First Album: ${artist.firstAlbum}</p>
-//                 <p>Creation Date: ${artist.creationDate}</p>
-//             </div>
-//         `;
-//         grid.appendChild(artistCard);
+        // Artist Card
+        let artistCard = document.createElement("div");
+        artistCard.classList.add("card");
+        artistCard.innerHTML = `
+            <img src="${artist.image}" alt="${artist.name}">
+            <div class="card-content">
+                <h3>${artist.name}</h3>
+                <p>First Album: ${artist.firstAlbum}</p>
+                <p>Creation Date: ${artist.creationDate}</p>
+            </div>
+        `;
+        grid.appendChild(artistCard);
 
-//         // Members Card
-//         if (members.length > 0) {
-//             let memberCard = document.createElement("div");
-//             memberCard.classList.add("card");
-//             memberCard.innerHTML = `
-//                 <div class="card-content">
-//                     <h3>Members</h3>
-//                     <ul>
-//                         ${members.map(member => `<li>${member}</li>`).join('')}
-//                     </ul>
-//                 </div>
-//             `;
-//             grid.appendChild(memberCard);
-//         }
+        // Members Card
+        if (members.length > 0) {
+            let memberCard = document.createElement("div");
+            memberCard.classList.add("card");
+            memberCard.innerHTML = `
+                <div class="card-content">
+                    <h3>Members</h3>
+                    <ul>
+                        ${members.map(member => `<li>${member}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            grid.appendChild(memberCard);
+        }
 
-//         // Locations Card
-//         if (locationData.locations.length > 0) {
-//             let locationCard = document.createElement("div");
-//             locationCard.classList.add("card");
-//             locationCard.innerHTML = `
-//                 <div class="card-content">
-//                     <h3>Locations</h3>
-//                     <ul>
-//                         ${locationData.locations.map(location => `<li>${location}</li>`).join('')}
-//                     </ul>
-//                 </div>
-//             `;
-//             grid.appendChild(locationCard);
-//         }
+        // Locations Card
+        if (locationData.locations.length > 0) {
+            let locationCard = document.createElement("div");
+            locationCard.classList.add("card");
+            locationCard.innerHTML = `
+                <div class="card-content">
+                    <h3>Locations</h3>
+                    <ul>
+                        ${locationData.locations.map(location => `<li>${location}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            grid.appendChild(locationCard);
+        }
 
-//         // Concert Dates Card
-//         let concertCard = document.createElement("div");
-//         concertCard.classList.add("card");
-//         concertCard.innerHTML = `
-//             <div class="card-content">
-//                 <h3>Concert Dates</h3>
-//                 <ul>
-//                     ${concertData.dates.length > 0 ? concertData.dates.map(concert => `<li>${concert}</li>`).join('') : '<li>No concert data available</li>'}
-//                 </ul>
-//             </div>
-//         `;
-//         grid.appendChild(concertCard);
+        // Concert Dates Card
+        let concertCard = document.createElement("div");
+        concertCard.classList.add("card");
+        concertCard.innerHTML = `
+            <div class="card-content">
+                <h3>Concert Dates</h3>
+                <ul>
+                    ${concertData.dates.length > 0 ? concertData.dates.map(concert => `<li>${concert}</li>`).join('') : '<li>No concert data available</li>'}
+                </ul>
+            </div>
+        `;
+        grid.appendChild(concertCard);
 
-//         // Relations Card
-//         let relationCard = document.createElement("div");
-//         relationCard.classList.add("card");
-//         relationCard.innerHTML = `
-//             <div class="card-content">
-//                 <h3>Relations</h3>
-//                 <ul>
-//                     ${Object.keys(relationData.datesLocations).length > 0 
-//                         ? Object.keys(relationData.datesLocations).map(location => {
-//                             return `<li>${location}: ${relationData.datesLocations[location].join(', ')}</li>`;
-//                           }).join('')
-//                         : '<li>No relation data available</li>'}
-//                 </ul>
-//             </div>
-//         `;
-//         grid.appendChild(relationCard);
-//     } catch (error) {
-//         console.error("Error fetching artist details:", error);
-//         showErrorPage(error.message);
-//     }
-// }
+        // Relations Card
+        let relationCard = document.createElement("div");
+        relationCard.classList.add("card");
+        relationCard.innerHTML = `
+            <div class="card-content">
+                <h3>Relations</h3>
+                <ul>
+                    ${Object.keys(relationData.datesLocations).length > 0 
+                        ? Object.keys(relationData.datesLocations).map(location => {
+                            return `<li>${location}: ${relationData.datesLocations[location].join(', ')}</li>`;
+                          }).join('')
+                        : '<li>No relation data available</li>'}
+                </ul>
+            </div>
+        `;
+        grid.appendChild(relationCard);
+    } catch (error) {
+        console.error("Error fetching artist details:", error);
+        showErrorPage(error.message);
+    }
+}
 
 
 
