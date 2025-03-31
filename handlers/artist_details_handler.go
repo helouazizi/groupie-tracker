@@ -63,7 +63,7 @@ func (h *ArtistDeatils) ArtistDetail(w http.ResponseWriter, r *http.Request) {
 		Artist   models.Artist   
 		Location models.Location 
 		Concert  models.Date     
-		Relation models.Relation //`json:"relationData"`
+		Relation models.Relation 
 	}{
 		Artist:   artist,
 		Location: locations,
