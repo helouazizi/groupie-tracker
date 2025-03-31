@@ -60,14 +60,14 @@ func (h *ArtistDeatils) ArtistDetail(w http.ResponseWriter, r *http.Request) {
 
 	// Combine artist and fetched data into a response
 	extendedArtist := struct {
-		Artist   models.Artist   
-		Location models.Location 
-		Concert  models.Date     
-		Relation models.Relation 
+		Artist   models.Artist
+		Location models.Location
+		Dates    models.Date
+		Relation models.Relation
 	}{
 		Artist:   artist,
 		Location: locations,
-		Concert:  dates,
+		Dates:    dates,
 		Relation: relations,
 	}
 
