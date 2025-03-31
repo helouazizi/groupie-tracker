@@ -9,7 +9,7 @@ import (
 )
 
 // FetchJSON fetches JSON from a given URL
-func Fetch(url string, target interface{}, wg *sync.WaitGroup) {
+func Fetch(url string, target any, wg *sync.WaitGroup) {
 	defer wg.Done()
 	resp, err := http.Get(url)
 	if err != nil {
