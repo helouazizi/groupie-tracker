@@ -27,7 +27,7 @@ func (h *ArtistDeatils) ArtistDetail(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Artist not found", http.StatusNotFound)
 		return
 	}
-	lovations, exist := h.Store.GetLocationById(id)
+	locations, exist := h.Store.GetLocationById(id)
 	if !exist {
 		http.Error(w, "Locations not found", http.StatusNotFound)
 		return
