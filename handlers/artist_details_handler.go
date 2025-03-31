@@ -2,10 +2,8 @@ package handlers
 
 import (
 	"encoding/json"
-	"groupie-tracker/api"
 	"groupie-tracker/models"
 	"groupie-tracker/repository"
-	"log"
 	"net/http"
 	"sync"
 )
@@ -35,19 +33,19 @@ func (h *ArtistDeatils) ArtistDetail(w http.ResponseWriter, r *http.Request) {
 	errChan := make(chan error, 3)
 
 	// Function to fetch data
-	fetchData := func(url string, target interface{}) {
-		defer wg.Done()
-		if err := api.Fetch(url, target); err != nil {
-			log.Println("Error fetching data:", err)
-			errChan <- err
-		}
-	}
+	// fetchData := func(url string, target interface{}) {
+	// 	defer wg.Done()
+	// 	if err := api.Fetch(url, target); err != nil {
+	// 		log.Println("Error fetching data:", err)
+	// 		errChan <- err
+	// 	}
+	// }
 
 	// Concurrently fetch data
 	wg.Add(3)
-	go fetchData(artist.Locations, &locationData)
-	go fetchData(artist.ConcertDates, &concertData)
-	go fetchData(artist.Relations, &relationData)
+	// go fetchData(artist.Locations, &locationData)
+	// go fetchData(artist.ConcertDates, &concertData)
+	// go fetchData(artist.Relations, &relationData)
 
 	// Wait for all fetch operations to complete
 	wg.Wait()

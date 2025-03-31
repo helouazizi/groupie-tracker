@@ -5,25 +5,24 @@ type Artist struct {
 	Name          string   `json:"name"`
 	Image         string   `json:"image"`
 	Members       []string `json:"members"`
-	LocationArray []string
 	FirstAlbum    string `json:"firstAlbum"`
 	CreationDate  int    `json:"creationDate"`
-	Locations     string `json:"locations"`    // api
-	ConcertDates  string `json:"concertDates"` // api
-	Relations     string `json:"relations"`    // api
+	//Locations     string `json:"locations"`    // api
+	//ConcertDates  string `json:"concertDates"` // api
+	//Relations     string `json:"relations"`    // api
 }
 
-// type Location struct {
-// 	//ID        int      `json:"id"`
-// 	Locations []string `json:"locations"`
-// }
+type Location struct {
+	ID        int      `json:"id"`
+	Locations []string `json:"locations"`
+}
 
-// type Date struct {
-// 	ID    int      `json:"id"`
-// 	Dates []string `json:"dates"`
-// }
+type Date struct {
+	ID    int      `json:"id"`
+	Dates []string `json:"dates"`
+}
 
-// type Relation struct {
-// 	ID       int                 `json:"id"`
-// 	Relation map[string][]string `json:"relation"`
-// }
+type Relation struct {
+	ID       int                 `json:"id"`
+	Relation map[string][]string `json:"relation"`
+}

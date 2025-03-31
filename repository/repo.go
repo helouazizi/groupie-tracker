@@ -1,11 +1,7 @@
 package repository
 
 import (
-	"encoding/json"
 	"groupie-tracker/models"
-	"io"
-	"log"
-	"net/http"
 	"strconv"
 	"sync"
 )
@@ -16,11 +12,12 @@ import (
 // "relation": "https://groupietrackers.herokuapp.com/api/relation"
 
 type Store struct {
-	Artists []models.Artist
-	Mutex   sync.Mutex
-}
-type LocationsResponse struct {
-	Index []string `json:"locations"`
+	Artists   []models.Artist
+	Locations []models.Location
+	Realtions []models.Relation
+	Dates     []models.Date
+	Wg        sync.WaitGroup
+	Mutex     sync.Mutex
 }
 
 func New_Store() *Store {
@@ -29,47 +26,46 @@ func New_Store() *Store {
 
 // loadd data
 func (s *Store) LoadData() {
-	// lets request the api to get artist data
-	url := "https://groupietrackers.herokuapp.com/api/artists"
-	res, err := http.Get(url)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer res.Body.Close()
+	// // lets request the api to get artist data
+	// url := "https://groupietrackers.herokuapp.com/api/artists"
+	// res, err := http.Get(url)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// defer res.Body.Close()
 
-	content, err := io.ReadAll(res.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// content, err := io.ReadAll(res.Body)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	// Unmarshal JSON into the struct
-	if err = json.Unmarshal(content, &s.Artists); err != nil {
-		log.Fatal(err)
-	}
+	// if err = json.Unmarshal(content, &s.Artists); err != nil {
+	// 	log.Fatal(err)
+	// }
 	////////////////
 
-	for i, artist := range s.Artists {
-		//url1 := "https://groupietrackers.herokuapp.com/api/locations"
-		res, errr := http.Get(artist.Locations)
-		if errr != nil {
-			log.Fatal(err)
-		}
-		defer res.Body.Close()
+	// for i, artist := range s.Artists {
+	// 	//url1 := "https://groupietrackers.herokuapp.com/api/locations"
+	// 	res, errr := http.Get(artist.Locations)
+	// 	if errr != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	defer res.Body.Close()
 
-		contentt, err := io.ReadAll(res.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
-		var locres LocationsResponse
-		// Unmarshal JSON into the struct
-		if err = json.Unmarshal(contentt, &locres); err != nil {
-			log.Fatal(err)
-		}
-		s.Artists[i].LocationArray = locres.Index
-	}
+	// 	contentt, err := io.ReadAll(res.Body)
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	var locres LocationsResponse
+	// 	// Unmarshal JSON into the struct
+	// 	if err = json.Unmarshal(contentt, &locres); err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	s.Artists[i].LocationArray = locres.Index
+	// }
 
 }
-
 func (s *Store) GetArtists() []models.Artist {
 	s.Mutex.Lock()
 	defer s.Mutex.Unlock()

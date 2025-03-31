@@ -7,7 +7,7 @@ import (
 )
 
 // FetchJSON fetches JSON from a given URL
-func Fetch(url string, target interface{}) error {
+func Fetch(url string, target any) error {
 	resp, err := http.Get(url)
 	if err != nil {
 		return err
