@@ -32,6 +32,16 @@ func (h *ArtistDeatils) ArtistDetail(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Locations not found", http.StatusNotFound)
 		return
 	}
+	relations, exist := h.Store.GetRealtionById(id)
+	if !exist {
+		http.Error(w, "Realtions not found", http.StatusNotFound)
+		return
+	}
+	dates, exist := h.Store.GetDateById(id)
+	if !exist {
+		http.Error(w, "Locations not found", http.StatusNotFound)
+		return
+	}
 
 	// Function to fetch data
 	// fetchData := func(url string, target interface{}) {
@@ -56,9 +66,9 @@ func (h *ArtistDeatils) ArtistDetail(w http.ResponseWriter, r *http.Request) {
 		Relation models.Relation //`json:"relationData"`
 	}{
 		Artist:   artist,
-		Location: locationData,
-		Concert:  concertData,
-		Relation: relationData,
+		Location: locations,
+		Concert:  dates,
+		Relation: relations,
 	}
 
 	// Respond with the extended artist JSON data
