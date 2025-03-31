@@ -56,6 +56,8 @@ func (s *Store) GetArtistByID(id string) (models.Artist, bool) {
 	if err != nil || idint < 1 || idint > len(s.Artists) {
 		return models.Artist{}, false
 	}
+	s.Mutex.Lock()
 	artist := s.Artists[idint-1]
+	s.Mutex.Unlock()
 	return artist, true
 }
