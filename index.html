@@ -18,28 +18,49 @@
         </div>
         <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
     </div>
-    <!-- <div class="filters">
+    <section id="filters">
+        <h2>Filter Artists</h2>
+      
+        <!-- Range Filter: Creation Date -->
         <div>
-            <label for="creationDateRange">Creation Date Range:</label>
-            <input type="range" id="creationDateRange" placeholder="e.g. 1990-2000" min="1970" max="2010">
+          <label>Creation Date:</label>
+          <input type="number" id="creation-from" placeholder="From (e.g. 1970)" />
+          <input type="number" id="creation-to" placeholder="To (e.g. 2000)" />
         </div>
-
+      
+        <!-- Range Filter: First Album Date -->
         <div>
-            <label for="firstAlbumRange">First Album Date Range:</label>
-            <input type="range" id="firstAlbumRange" placeholder="e.g. 1990-2000">
+          <label>First Album Year:</label>
+          <input type="number" id="album-from" placeholder="From (e.g. 1980)" />
+          <input type="number" id="album-to" placeholder="To (e.g. 1992)" />
         </div>
-
+      
+        <!-- Number of Members -->
         <div>
-            <label for="memberCount">Number of Members:</label>
-            <input type="number" id="memberCount" placeholder="e.g. 6">
+          <label for="members">Number of Members:</label>
+          <input type="number" id="members" min="1" max="20" />
         </div>
-
+      
+        <!-- Concert Locations -->
         <div>
-            <label for="locationFilter">Location:</label>
-            <input type="text" id="locationFilter" placeholder="e.g. Texas, USA">
+          <label>Concert Locations:</label>
+          <div>
+            <input type="checkbox" id="location-texas" value="Texas, USA" />
+            <label for="location-texas">Texas, USA</label>
+          </div>
+          <div>
+            <input type="checkbox" id="location-washington" value="Washington, USA" />
+            <label for="location-washington">Washington, USA</label>
+          </div>
+          <!-- Add more checkboxes dynamically or manually -->
         </div>
-    </div> -->
-
+      
+        <!-- Show All / Reset Filters -->
+        <div>
+          <button type="button" id="reset-filters">Show All Artists</button>
+        </div>
+      </section>
+      
     <div class="container">
         <div class="grid" id="artistsGrid"></div>
     </div>
