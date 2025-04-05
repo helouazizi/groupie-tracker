@@ -20,42 +20,46 @@
     </div>
     <section id="filters">
         <h2>Filter Artists</h2>
-    
-        <div class="filter-group">
+      
+        <form id="filters-form">
+          <div class="filter-group">
             <div>
-                <label>Creation Date:</label>
-                <input type="number" id="creation-from" placeholder="From (e.g. 1970)" />
-                <input type="number" id="creation-to" placeholder="To (e.g. 2000)" />
+              <label>Creation Date:</label>
+              <input type="number" name="creationFrom" placeholder="From (e.g. 1970)" />
+              <input type="number" name="creationTo" placeholder="To (e.g. 2000)" />
             </div>
-    
+      
             <div>
-                <label>First Album Year:</label>
-                <input type="number" id="album-from" placeholder="From (e.g. 1980)" />
-                <input type="number" id="album-to" placeholder="To (e.g. 1992)" />
+              <label>First Album Year:</label>
+              <input type="number" name="albumFrom" placeholder="From (e.g. 1980)" />
+              <input type="number" name="albumTo" placeholder="To (e.g. 1992)" />
             </div>
-    
+      
             <div>
-                <label for="members">Number of Members:</label>
-                <input type="number" id="members" min="1" max="20" />
+              <label for="members">Number of Members:</label>
+              <input type="number" name="members" min="1" max="20" />
             </div>
-        </div>
-    
-        <div class="filter-group checkbox-group">
+          </div>
+      
+          <div class="filter-group checkbox-group">
             <label>Concert Locations:</label>
             <div>
-                <input type="checkbox" id="location-texas" value="Texas, USA" />
-                <label for="location-texas">Texas, USA</label>
+              <input type="checkbox" name="locations" value="Texas, USA" id="location-texas" />
+              <label for="location-texas">Texas, USA</label>
             </div>
             <div>
-                <input type="checkbox" id="location-washington" value="Washington, USA" />
-                <label for="location-washington">Washington, USA</label>
+              <input type="checkbox" name="locations" value="Washington, USA" id="location-washington" />
+              <label for="location-washington">Washington, USA</label>
             </div>
-        </div>
-    
-        <div class="filter-group">
+          </div>
+      
+          <div class="filter-group">
+            <button type="submit">Filter Artists</button>
             <button type="button" id="reset-filters">Show All Artists</button>
-        </div>
-    </section>
+          </div>
+        </form>
+      </section>
+      
     
       
     <div class="container">
