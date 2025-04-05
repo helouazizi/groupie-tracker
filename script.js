@@ -38,7 +38,7 @@ function displayArtists(artists) {
 //     let locationFilter = document.getElementById("locationFilter").value.toLowerCase();
 
 //     let cards = document.querySelectorAll(".card");
-    
+
 //     cards.forEach(card => {
 //         let creationDate = parseInt(card.getAttribute("data-creation-date"));
 //         let firstAlbumDate = parseInt(card.getAttribute("data-first-album"));
@@ -193,9 +193,9 @@ async function artistDetails(id) {
                 <div class="card">
                     <div class="card-content">
                         <h3>${title}</h3>
-                        ${Array.isArray(content) 
-                            ? `<ul>${content.map(item => `<li>${item}</li>`).join('')}</ul>`
-                            : `<p>${content}</p>`}
+                        ${Array.isArray(content)
+                    ? `<ul>${content.map(item => `<li>${item}</li>`).join('')}</ul>`
+                    : `<p>${content}</p>`}
                     </div>
                 </div>
             `;
@@ -246,7 +246,7 @@ function showErrorPage(message) {
 //     let locationFilter = document.getElementById("locationFilter").value.toLowerCase();
 
 //     let cards = document.querySelectorAll(".card");
-    
+
 //     cards.forEach(card => {
 //         let creationDate = parseInt(card.getAttribute("data-creation-date"));
 //         let firstAlbumDate = parseInt(card.getAttribute("data-first-album"));
@@ -294,36 +294,36 @@ function showErrorPage(message) {
 
 document.getElementById('filters-form').addEventListener('submit', async function (e) {
     e.preventDefault();
-  
+
     const formData = new FormData(e.target);
     const filterData = {
-      creationFrom: formData.get('creationFrom'),
-      creationTo: formData.get('creationTo'),
-      albumFrom: formData.get('albumFrom'),
-      albumTo: formData.get('albumTo'),
-      members: formData.get('members'),
-      locations: formData.getAll('locations'), // multiple checkboxes
+        creationFrom: formData.get('creationFrom'),
+        creationTo: formData.get('creationTo'),
+        albumFrom: formData.get('albumFrom'),
+        albumTo: formData.get('albumTo'),
+        members: formData.get('members'),
+        locations: formData.getAll('locations'), // multiple checkboxes
     };
-    
+
     try {
-      const response = await fetch('http://localhost:8080/filter', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(filterData),
-      });
-  
-      if (!response.ok) throw new Error('Failed to fetch filtered artists');
-      const artists = await response.json();
-  
-      console.log('Filtered Artists:', artists);
-      // update your DOM with filtered artists (e.g., renderArtists(artists))
+        const response = await fetch('http://localhost:8080/filter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(filterData),
+        });
+
+        if (!response.ok) throw new Error('Failed to fetch filtered artists');
+        const artists = await response.json();
+
+        console.log('Filtered Artists:', artists);
+        // update your DOM with filtered artists (e.g., renderArtists(artists))
     } catch (err) {
-      console.error('Error:', err.message);
+        console.error('Error:', err.message);
     }
-  });
-  
+});
+
 
 
 
