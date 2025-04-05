@@ -292,7 +292,38 @@ function showErrorPage(message) {
 // document.getElementById("locationFilter").addEventListener("input", applyFilters);
 
 
-
+document.getElementById('filters-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+  
+    const formData = new FormData(e.target);
+    const filterData = {
+      creationFrom: formData.get('creationFrom'),
+      creationTo: formData.get('creationTo'),
+      albumFrom: formData.get('albumFrom'),
+      albumTo: formData.get('albumTo'),
+      members: formData.get('members'),
+      locations: formData.getAll('locations'), // multiple checkboxes
+    };
+    
+    try {
+      const response = await fetch('https://your-api-url.com/api/filter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(filterData),
+      });
+  
+      if (!response.ok) throw new Error('Failed to fetch filtered artists');
+      const artists = await response.json();
+  
+      console.log('Filtered Artists:', artists);
+      // update your DOM with filtered artists (e.g., renderArtists(artists))
+    } catch (err) {
+      console.error('Error:', err.message);
+    }
+  });
+  
 
 
 
