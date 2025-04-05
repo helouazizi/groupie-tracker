@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"fmt"
 	"groupie-tracker/api"
 	"groupie-tracker/models"
 	"strconv"
@@ -40,7 +39,7 @@ func (s *Store) LoadData() {
 	go api.Fetch(apiUrls[2], &s.Dates, &s.Wg)
 	go api.Fetch(apiUrls[3], &s.Realtions, &s.Wg)
 	s.Wg.Wait()
-	fmt.Println("Fetched Artists Data:", s.Artists[0])
+	//fmt.Println("Fetched Artists Data:", s.Artists[0])
 	//fmt.Println("Fetched Locations Data:", s.Locations.Index[0])
 	//fmt.Println("Fetched Dates Data:", s.Dates.Index)
 	//fmt.Println("Fetched Relation Data:", s.Realtions.Index)
