@@ -21,6 +21,8 @@ type Filter_Handler struct {
 }
 
 func (f *Filter_Handler) Filter(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*") // Fix CORS issues
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
@@ -41,7 +43,7 @@ func (f *Filter_Handler) Filter(w http.ResponseWriter, r *http.Request) {
 	// json.NewEncoder(w).Encode(filtered)
 
 	w.WriteHeader(http.StatusOK)
-	w.Header().Set("Content-Type", "application/json")
+	//w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"message": "Filter received!"})
 
 }
