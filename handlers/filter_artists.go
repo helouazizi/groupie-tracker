@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"groupie-tracker/repository"
 	"net/http"
 )
@@ -31,5 +32,16 @@ func (f *Filter_Handler) Filter(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad Request: "+err.Error(), http.StatusBadRequest)
 		return
 	}
+
+	// You now have the data
+	fmt.Println("Filter parameters:", filterReq)
+
+	// TODO: use the data to filter artists and return them as JSON
+	// e.g., filtered := filterArtists(filterReq)
+	// json.NewEncoder(w).Encode(filtered)
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"message": "Filter received!"})
 
 }
