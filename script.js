@@ -306,7 +306,7 @@ document.getElementById('filters-form').addEventListener('submit', async functio
     };
     
     try {
-      const response = await fetch('https://your-api-url.com/api/filter', {
+      const response = await fetch('http://localhost:8080/filter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
