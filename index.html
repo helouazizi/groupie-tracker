@@ -20,46 +20,43 @@
     </div>
     <section id="filters">
         <h2>Filter Artists</h2>
-      
-        <!-- Range Filter: Creation Date -->
-        <div>
-          <label>Creation Date:</label>
-          <input type="number" id="creation-from" placeholder="From (e.g. 1970)" />
-          <input type="number" id="creation-to" placeholder="To (e.g. 2000)" />
+    
+        <div class="filter-group">
+            <div>
+                <label>Creation Date:</label>
+                <input type="number" id="creation-from" placeholder="From (e.g. 1970)" />
+                <input type="number" id="creation-to" placeholder="To (e.g. 2000)" />
+            </div>
+    
+            <div>
+                <label>First Album Year:</label>
+                <input type="number" id="album-from" placeholder="From (e.g. 1980)" />
+                <input type="number" id="album-to" placeholder="To (e.g. 1992)" />
+            </div>
+    
+            <div>
+                <label for="members">Number of Members:</label>
+                <input type="number" id="members" min="1" max="20" />
+            </div>
         </div>
-      
-        <!-- Range Filter: First Album Date -->
-        <div>
-          <label>First Album Year:</label>
-          <input type="number" id="album-from" placeholder="From (e.g. 1980)" />
-          <input type="number" id="album-to" placeholder="To (e.g. 1992)" />
+    
+        <div class="filter-group checkbox-group">
+            <label>Concert Locations:</label>
+            <div>
+                <input type="checkbox" id="location-texas" value="Texas, USA" />
+                <label for="location-texas">Texas, USA</label>
+            </div>
+            <div>
+                <input type="checkbox" id="location-washington" value="Washington, USA" />
+                <label for="location-washington">Washington, USA</label>
+            </div>
         </div>
-      
-        <!-- Number of Members -->
-        <div>
-          <label for="members">Number of Members:</label>
-          <input type="number" id="members" min="1" max="20" />
+    
+        <div class="filter-group">
+            <button type="button" id="reset-filters">Show All Artists</button>
         </div>
-      
-        <!-- Concert Locations -->
-        <div>
-          <label>Concert Locations:</label>
-          <div>
-            <input type="checkbox" id="location-texas" value="Texas, USA" />
-            <label for="location-texas">Texas, USA</label>
-          </div>
-          <div>
-            <input type="checkbox" id="location-washington" value="Washington, USA" />
-            <label for="location-washington">Washington, USA</label>
-          </div>
-          <!-- Add more checkboxes dynamically or manually -->
-        </div>
-      
-        <!-- Show All / Reset Filters -->
-        <div>
-          <button type="button" id="reset-filters">Show All Artists</button>
-        </div>
-      </section>
+    </section>
+    
       
     <div class="container">
         <div class="grid" id="artistsGrid"></div>
