@@ -6,7 +6,7 @@ import (
 	"groupie-tracker/repository"
 	"net/http"
 )
-
+// hhh
 type ArtistDeatils struct {
 	Store *repository.Store
 }
