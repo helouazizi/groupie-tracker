@@ -404,7 +404,10 @@ button:hover {
 @media (max-width: 768px) {
     #filters .filter-group {
         flex-direction: column;
-        gap: 20px;
+        gap: 5px;
+        div {
+            height: fit-content;
+        }
     }
 
     #filters .filter-actions {
@@ -432,4 +435,62 @@ button:hover {
 
 .dark-mode #filters label {
     color: var(--text-dark);
+}
+
+#members-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 10px;
+    padding: 10px 0;
+}
+
+#members-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #f4f4f4;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    font-size: 0.95em;
+    font-weight: 500;
+    user-select: none;
+}
+
+#members-checkboxes input[type="checkbox"] {
+    accent-color: var(--primary-color);
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+#members-checkboxes label:hover {
+    background-color: var(--primary-light);
+}
+
+#members-checkboxes input[type="checkbox"]:focus-visible + span {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+    #members-checkboxes {
+        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    }
+
+    #members-checkboxes label {
+        font-size: 0.85em;
+        padding: 6px 10px;
+    }
+}
+
+/* Dark mode compatibility */
+.dark-mode #members-checkboxes label {
+    background-color: #444;
+    color: #fff;
+}
+
+.dark-mode #members-checkboxes label:hover {
+    background-color: #555;
 }
