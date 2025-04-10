@@ -30,47 +30,7 @@ function displayArtists(artists) {
     });
 }
 
-// Function to filter based on user input from form controls
-// function filterArtists() {
-//     let creationDateRange = document.getElementById("creationDateRange").value.split("-");
-//     let firstAlbumRange = document.getElementById("firstAlbumRange").value.split("-");
-//     let memberCount = document.getElementById("memberCount").value;
-//     let locationFilter = document.getElementById("locationFilter").value.toLowerCase();
 
-//     let cards = document.querySelectorAll(".card");
-
-//     cards.forEach(card => {
-//         let creationDate = parseInt(card.getAttribute("data-creation-date"));
-//         let firstAlbumDate = parseInt(card.getAttribute("data-first-album"));
-//         let membersCount = parseInt(card.getAttribute("data-members"));
-//         let locations = card.getAttribute("data-locations").toLowerCase();
-
-//         let isVisible = true;
-
-//         // Filter by creation date range
-//         if (creationDate < parseInt(creationDateRange[0]) || creationDate > parseInt(creationDateRange[1])) {
-//             isVisible = false;
-//         }
-
-//         // Filter by first album date range
-//         if (firstAlbumDate < parseInt(firstAlbumRange[0]) || firstAlbumDate > parseInt(firstAlbumRange[1])) {
-//             isVisible = false;
-//         }
-
-//         // Filter by number of members
-//         if (memberCount && membersCount !== parseInt(memberCount)) {
-//             isVisible = false;
-//         }
-
-//         // Filter by location
-//         if (locationFilter && !locations.includes(locationFilter)) {
-//             isVisible = false;
-//         }
-
-//         // Apply visibility
-//         card.style.display = isVisible ? "block" : "none";
-//     });
-// }
 
 
 
