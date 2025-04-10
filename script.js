@@ -181,10 +181,17 @@ function showErrorPage(message) {
 }
 
 function filter(params) {
-    document.getElementById("filters-form").addEventListener("submit", async(e)=>{
+    document.getElementById("filters-form").addEventListener("submit", async (e) => {
 
-        
-    })  
+        e.preventDefault() // prwvent the event to focouse on our js logic below
+        const data = {
+            creationDateFrom: document.getElementById("creation-date-from").value,
+            creationDateTo: document.getElementById("creation-date-to").value,
+            firstAlbumFrom: document.getElementById("first-album-from").value,
+            firstAlbumTo: document.getElementById("first-album-to").value,
+            members: document.getElementById("members").value,
+        };
+    })
 }
 
 
