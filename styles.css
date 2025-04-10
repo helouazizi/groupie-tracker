@@ -5,9 +5,9 @@
     --text-dark: #f4f4f4;
     --card-bg-light: white;
     --card-bg-dark: #2c2c2c;
-    --primary-color: #007bff;
+    --primary-color: #4e76a1;
     --secondary-color: #555;
-    --button-bg: #007bff;
+    --button-bg: #415365;
     --button-hover-bg: #0056b3;
     --border-radius: 8px;
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -172,7 +172,7 @@ body {
     padding: 5px;
     width: 90%;
     font-size: 1em;
-    background-color: rgb(90, 86, 86);
+    background-color:var(--button-bg);
     color: white;
     border: none;
     border-radius: var(--border-radius);
@@ -317,7 +317,7 @@ button:hover {
     font-size: 1.5em;
     margin-bottom: 20px;
     color: var(--primary-color);
-    text-align: center;
+    text-align: start;
 }
 
 #filters .filter-group {
