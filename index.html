@@ -24,9 +24,8 @@
         <form id="filters-form">
           <div class="filter-group">
             <div>
-              <label>Creation Date:</label>
-              <input type="number" name="creationFrom" placeholder="From (e.g. 1970)" />
-              <input type="number" name="creationTo" placeholder="To (e.g. 2000)" />
+              <label for="creation-date">Creation Date:</label>
+              <input type="range" name="creation-date" id="creation-date" min="0" max="100"/>
             </div>
       
             <div>
@@ -39,6 +38,10 @@
               <label for="members">Number of Members:</label>
               <input type="number" name="members" min="1" max="20" />
             </div>
+          </div>
+          <div class="filter-actions">
+            <button type="reset">Reset</button>
+            <button type="submit">Filter</button>
           </div>
         </form>
       </section>
