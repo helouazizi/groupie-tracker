@@ -64,12 +64,21 @@ func (f *Filter_Handler) filter(data FilterRequest, target *[]models.Artist) {
 	from, _ := strconv.Atoi(data.CreationFrom)
 	to, _ := strconv.Atoi(data.CreationTo)
 	members, _ := strconv.Atoi(data.Members)
+	//concerts := strings.Split(strings.ToLower(data.ConcertDate), " ")
 	for _, artist := range f.Store.Artists {
 		// lets make the consitons to math the filterd informatio
 		craetionDate := artist.CreationDate
 		album := strings.Split(artist.FirstAlbum, "-")[2]
+		//includes := f.exist(artist.ID, concerts)
 		if (craetionDate >= from && craetionDate <= to) || (album >= data.AlbumFrom && album <= data.AlbumTo) || (len(artist.Members) == members) {
 			*target = append(*target, artist)
 		}
 	}
 }
+
+// func (f *Filter_Handler) exist(id int, consets []string) bool {
+// 	for _,loc := range consets {
+// 		if strings.Contains()
+// 	}
+// 	return false
+// }
