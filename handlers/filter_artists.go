@@ -62,11 +62,12 @@ func (f *Filter_Handler) filter(data FilterRequest, target *[]models.Artist) {
 	//lets range over the artist repo
 	from, _ := strconv.Atoi(data.CreationFrom)
 	to, _ := strconv.Atoi(data.CreationTo)
+	members , _ :=  strconv.Atoi(data.Members)
 	for _, artist := range f.Store.Artists {
 		// lets make the consitons to math the filterd informatio
 		craetionDate := artist.CreationDate
-		album := strings.Split(artist.FirstAlbum,"-")[2]
-		if (craetionDate >= from && craetionDate <= to) || (album >= data.AlbumFrom && album <= data.AlbumTo){
+		album := strings.Split(artist.FirstAlbum, "-")[2]
+		if (craetionDate >= from && craetionDate <= to) || (album >= data.AlbumFrom && album <= data.AlbumTo) || (len(artist.Members) == members) {
 			*target = append(*target, artist)
 		}
 	}
