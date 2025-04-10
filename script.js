@@ -77,13 +77,7 @@ function displayArtists(artists) {
 //     filterArtists();
 // }
 
-// Ensure event listeners are applied correctly
-// window.addEventListener("DOMContentLoaded", () => {
-//     document.getElementById("creationDateRange").addEventListener("input", applyFilters);
-//     document.getElementById("firstAlbumRange").addEventListener("input", applyFilters);
-//     document.getElementById("memberCount").addEventListener("input", applyFilters);
-//     document.getElementById("locationFilter").addEventListener("input", applyFilters);
-// });
+
 
 
 function toggleDarkMode() {
