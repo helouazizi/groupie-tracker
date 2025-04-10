@@ -190,6 +190,7 @@ function filter() {
             firstAlbumFrom: document.getElementById("first-album-from").value,
             firstAlbumTo: document.getElementById("first-album-to").value,
             members: document.getElementById("members").value,
+            concertDates : document.getElementById("concert-dates").value,
         };
         console.log(data);
         
