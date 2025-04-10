@@ -72,10 +72,7 @@ function displayArtists(artists) {
 //     });
 // }
 
-// Call this function when filters change
-// function applyFilters() {
-//     filterArtists();
-// }
+
 
 
 
