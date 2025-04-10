@@ -7,6 +7,7 @@ import (
 	"groupie-tracker/repository"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 type FilterRequest struct {
@@ -64,7 +65,8 @@ func (f *Filter_Handler) filter(data FilterRequest, target *[]models.Artist) {
 	for _, artist := range f.Store.Artists {
 		// lets make the consitons to math the filterd informatio
 		craetionDate := artist.CreationDate
-		if craetionDate >= from && craetionDate <= to {
+		album := strings.Split(artist.FirstAlbum,"-")[2]
+		if (craetionDate >= from && craetionDate <= to) || (album >= data.AlbumFrom && album <= data.AlbumTo){
 			*target = append(*target, artist)
 		}
 	}
