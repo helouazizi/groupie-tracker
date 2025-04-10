@@ -180,4 +180,13 @@ function showErrorPage(message) {
     return
 }
 
+function filter(params) {
+    document.getElementById("filters-form").addEventListener("submit", async(e)=>{
+
+        
+    })  
+}
+
+
 fetchArtists();
+filter()
