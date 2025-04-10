@@ -16,6 +16,7 @@ type FilterRequest struct {
 	AlbumFrom    string `json:"firstAlbumFrom"`
 	AlbumTo      string `json:"firstAlbumTo"`
 	Members      string `json:"members"`
+	ConcertDate  string `json:"concertDates"`
 	//Locations    []string `json:"locations"`
 }
 
@@ -62,7 +63,7 @@ func (f *Filter_Handler) filter(data FilterRequest, target *[]models.Artist) {
 	//lets range over the artist repo
 	from, _ := strconv.Atoi(data.CreationFrom)
 	to, _ := strconv.Atoi(data.CreationTo)
-	members , _ :=  strconv.Atoi(data.Members)
+	members, _ := strconv.Atoi(data.Members)
 	for _, artist := range f.Store.Artists {
 		// lets make the consitons to math the filterd informatio
 		craetionDate := artist.CreationDate
