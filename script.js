@@ -31,12 +31,6 @@ function displayArtists(artists) {
 }
 
 
-
-
-
-
-
-
 function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
 }
