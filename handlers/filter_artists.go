@@ -21,29 +21,37 @@ type Filter_Handler struct {
 }
 
 func (f *Filter_Handler) Filter(w http.ResponseWriter, r *http.Request) {
+	// Set CORS headers for preflight and actual request
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "*") // Fix CORS issues
+
+	// 🧠 Handle preflight OPTIONS request
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	var filterReq FilterRequest
+	fmt.Println(r.Body)
 	err := json.NewDecoder(r.Body).Decode(&filterReq)
 	if err != nil {
 		http.Error(w, "Bad Request: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	// You now have the data
 	fmt.Println("Filter parameters:", filterReq)
 
-	// TODO: use the data to filter artists and return them as JSON
-	// e.g., filtered := filterArtists(filterReq)
+	// Here you would apply your filtering logic using f.Store
+	// filtered := f.Store.FilterArtists(filterReq)
 	// json.NewEncoder(w).Encode(filtered)
 
 	w.WriteHeader(http.StatusOK)
-	//w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"message": "Filter received!"})
-
 }
