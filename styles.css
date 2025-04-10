@@ -323,6 +323,7 @@ button:hover {
 #filters .filter-group {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
     gap: 20px;
     margin-bottom: 20px;
     align-items: flex-end;
@@ -336,34 +337,24 @@ button:hover {
 }
 
 #filters input[type="number"],
-#filters input[type="text"] {
-    padding: 10px;
+#filters input[type="range"]{
+    padding: 2px;
     border-radius: 5px;
     border: 1px solid #ccc;
     width: 150px;
     font-size: 1em;
     background: white;
+    min-width: 250px;
+    width: 100%;
 }
+/* #filters input[type="range"] {
+    min-width: 250px;
+    width: 100%;
+} */
 
-#filters input[type="checkbox"] {
-    margin-right: 8px;
-    transform: scale(1.1);
-    accent-color: var(--primary-color);
-}
-
-#filters .checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-#filters .checkbox-group div {
-    display: flex;
-    align-items: center;
-}
-
-#filters button#reset-filters {
+#filters button {
     padding: 10px 20px;
+    width: 30%;
     background: var(--button-bg);
     color: white;
     border: none;
