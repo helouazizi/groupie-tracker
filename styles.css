@@ -20,9 +20,11 @@
     padding: 0;
     font-family: var(--font-family);
 }
+
 a {
     text-decoration: none;
 }
+
 ul li {
     list-style: none;
 }
@@ -36,7 +38,8 @@ body {
     padding: 20px;
     min-height: 100vh;
     transition: background 0.3s, color 0.3s;
-    padding-top: 80px; /* Adjust for fixed header */
+    padding-top: 80px;
+    /* Adjust for fixed header */
 }
 
 /* Fixed Header */
@@ -86,12 +89,14 @@ body {
 
 /* Container for the content */
 .container {
-    margin-top: 100px; /* Offset for the fixed header */
+    margin-top: 100px;
+    /* Offset for the fixed header */
     max-width: 1200px;
     width: 100%;
     text-align: center;
     display: flex;
-    justify-content: center; /* Center the grid horizontally */
+    justify-content: center;
+    /* Center the grid horizontally */
 }
 
 .grid {
@@ -172,7 +177,7 @@ body {
     padding: 5px;
     width: 90%;
     font-size: 1em;
-    background-color:var(--button-bg);
+    background-color: var(--button-bg);
     color: white;
     border: none;
     border-radius: var(--border-radius);
@@ -184,11 +189,13 @@ body {
 button:hover {
     background-color: var(--button-hover-bg);
 }
+
 /* Suggestion Box Styling */
 #suggestions {
     position: absolute;
     width: 100%;
-    max-width: 250px; /* Adjust width as needed */
+    max-width: 250px;
+    /* Adjust width as needed */
     background: var(--card-bg-light);
     border: 1px solid #ccc;
     border-radius: var(--border-radius);
@@ -279,6 +286,7 @@ button:hover {
         font-size: 1em;
     }
 }
+
 .error {
     text-align: center;
     padding: 20px;
@@ -288,6 +296,7 @@ button:hover {
     margin: 20px;
     border-radius: 5px;
 }
+
 .error button {
     background-color: red;
     color: white;
@@ -296,10 +305,10 @@ button:hover {
     cursor: pointer;
     border-radius: 3px;
 }
+
 .error button:hover {
     background-color: darkred;
 }
-
 
 
 
@@ -308,53 +317,75 @@ button:hover {
     max-width: 1200px;
     background: var(--card-bg-light);
     padding: 30px 20px;
-    margin: 20px 0;
+    margin: 20px auto;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 #filters h2 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
+    font-size: 1.8em;
+    margin-bottom: 30px;
     color: var(--primary-color);
     text-align: start;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
 }
 
 #filters .filter-group {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 20px;
-    margin-bottom: 20px;
-    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
 }
 
-#filters label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
+#filters .filter-group>div {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#filters h3 {
+    margin: 0;
+    font-size: 1.1em;
     color: var(--text-light);
 }
 
-#filters input[type="number"],
-#filters input[type="range"]{
-    padding: 2px;
-    border-radius: 5px;
+#filters label {
+    font-weight: 600;
+    color: var(--text-light);
+    font-size: 0.95em;
+}
+
+#filters input[type="text"],
+#filters input[type="number"] {
+    padding: 10px;
+    border-radius: 6px;
     border: 1px solid #ccc;
-    width: 150px;
     font-size: 1em;
     background: white;
-    min-width: 250px;
     width: 100%;
+    box-sizing: border-box;
+    transition: border 0.3s, box-shadow 0.3s;
 }
-/* #filters input[type="range"] {
-    min-width: 250px;
-    width: 100%;
-} */
+
+#filters input[type="text"]:focus,
+#filters input[type="number"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+#filters .filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    flex-wrap: wrap;
+}
 
 #filters button {
-    padding: 10px 20px;
-    width: 30%;
+    padding: 12px 24px;
     background: var(--button-bg);
     color: white;
     border: none;
@@ -362,9 +393,10 @@ button:hover {
     cursor: pointer;
     font-size: 1em;
     transition: background 0.3s;
+    min-width: 120px;
 }
 
-#filters button#reset-filters:hover {
+#filters button:hover {
     background: var(--button-hover-bg);
 }
 
@@ -372,35 +404,32 @@ button:hover {
 @media (max-width: 768px) {
     #filters .filter-group {
         flex-direction: column;
+        gap: 20px;
+    }
+
+    #filters .filter-actions {
+        flex-direction: column;
         align-items: stretch;
     }
 
-    #filters input[type="number"],
-    #filters input[type="text"] {
+    #filters button {
         width: 100%;
-    }
-
-    #filters .checkbox-group {
-        flex-direction: column;
     }
 }
 
+/* Dark mode support */
 .dark-mode #filters {
     background: var(--card-bg-dark);
     color: var(--text-dark);
 }
 
-.dark-mode #filters input[type="number"],
-.dark-mode #filters input[type="text"] {
-    background: #444;
+.dark-mode #filters input[type="text"],
+.dark-mode #filters input[type="number"] {
+    background: #333;
     color: white;
     border: 1px solid #666;
 }
 
 .dark-mode #filters label {
     color: var(--text-dark);
-}
-
-.dark-mode #filters button#reset-filters {
-    background: var(--primary-color);
 }
