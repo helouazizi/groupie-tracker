@@ -8,12 +8,12 @@ import (
 )
 
 type FilterRequest struct {
-	CreationFrom int      `json:"creationFrom"`
-	CreationTo   int      `json:"creationTo"`
-	AlbumFrom    int      `json:"albumFrom"`
-	AlbumTo      int      `json:"albumTo"`
-	Members      int      `json:"members"`
-	Locations    []string `json:"locations"`
+	CreationFrom int `json:"creationDateFrom"`
+	CreationTo   int `json:"creationDateTo"`
+	AlbumFrom    int `json:"firstAlbumFrom"`
+	AlbumTo      int `json:"firstAlbumTo"`
+	Members      int `json:"members"`
+	//Locations    []string `json:"locations"`
 }
 
 type Filter_Handler struct {
