@@ -191,6 +191,20 @@ function filter(params) {
             firstAlbumTo: document.getElementById("first-album-to").value,
             members: document.getElementById("members").value,
         };
+        const res = await fetch("http://localhost:8080/filter", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        if (res.ok) {
+            const result = await res.json();
+            console.log("Filtered data:", result);
+            // You could update your UI with the result here
+        } else {
+            console.error("Failed to filter artists");
+        }
     })
 }
 
