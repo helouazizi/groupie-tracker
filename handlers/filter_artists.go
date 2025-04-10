@@ -8,11 +8,11 @@ import (
 )
 
 type FilterRequest struct {
-	CreationFrom int `json:"creationDateFrom"`
-	CreationTo   int `json:"creationDateTo"`
-	AlbumFrom    int `json:"firstAlbumFrom"`
-	AlbumTo      int `json:"firstAlbumTo"`
-	Members      int `json:"members"`
+	CreationFrom string `json:"creationDateFrom"`
+	CreationTo   string `json:"creationDateTo"`
+	AlbumFrom    string `json:"firstAlbumFrom"`
+	AlbumTo      string `json:"firstAlbumTo"`
+	Members      string `json:"members"`
 	//Locations    []string `json:"locations"`
 }
 
@@ -39,7 +39,6 @@ func (f *Filter_Handler) Filter(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var filterReq FilterRequest
-	fmt.Println(r.Body)
 	err := json.NewDecoder(r.Body).Decode(&filterReq)
 	if err != nil {
 		http.Error(w, "Bad Request: "+err.Error(), http.StatusBadRequest)
