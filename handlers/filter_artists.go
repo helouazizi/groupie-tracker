@@ -47,10 +47,6 @@ func (f *Filter_Handler) Filter(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Filter parameters:", filterReq)
 
-	// Here you would apply your filtering logic using f.Store
-	// filtered := f.Store.FilterArtists(filterReq)
-	// json.NewEncoder(w).Encode(filtered)
-
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"message": "Filter received!"})
 }
