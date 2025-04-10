@@ -180,7 +180,7 @@ function showErrorPage(message) {
     return
 }
 
-function filter(params) {
+function filter() {
     document.getElementById("filters-form").addEventListener("submit", async (e) => {
 
         e.preventDefault() // prwvent the event to focouse on our js logic below
@@ -202,10 +202,11 @@ function filter(params) {
             
             
         });
-        
+
         if (res.ok) {
             const result = await res.json();
             console.log("Filtered data:", result);
+            displayArtists(result)
             // You could update your UI with the result here
         } else {
             console.error("Failed to filter artists");

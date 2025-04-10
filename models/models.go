@@ -6,7 +6,7 @@ type Artist struct {
 	Image        string   `json:"image"`
 	Members      []string `json:"members"`
 	FirstAlbum   string   `json:"firstAlbum"`
-	CreationDate int      `json:"creationDate"`
+	CreationDate int   `json:"creationDate"`
 	//Locations     string `json:"locations"`    // api
 	//ConcertDates  string `json:"concertDates"` // api
 	//Relations     string `json:"relations"`    // api

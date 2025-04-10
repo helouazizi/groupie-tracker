@@ -3,8 +3,10 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"groupie-tracker/models"
 	"groupie-tracker/repository"
 	"net/http"
+	"strconv"
 )
 
 type FilterRequest struct {
@@ -44,9 +46,26 @@ func (f *Filter_Handler) Filter(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad Request: "+err.Error(), http.StatusBadRequest)
 		return
 	}
-
+	var result []models.Artist
 	fmt.Println("Filter parameters:", filterReq)
+	f.filter(filterReq, &result)
 
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{"message": "Filter received!"})
+	if err := json.NewEncoder(w).Encode(result); err != nil {
+		http.Error(w, "error finging the filtered info: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+}
+
+func (f *Filter_Handler) filter(data FilterRequest, target *[]models.Artist) {
+	//lets range over the artist repo
+	from, _ := strconv.Atoi(data.CreationFrom)
+	to, _ := strconv.Atoi(data.CreationTo)
+	for _, artist := range f.Store.Artists {
+		// lets make the consitons to math the filterd informatio
+		craetionDate := artist.CreationDate
+		if craetionDate >= from && craetionDate <= to {
+			*target = append(*target, artist)
+		}
+	}
 }
