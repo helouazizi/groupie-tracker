@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"groupie-tracker/models"
 	"groupie-tracker/repository"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -60,25 +61,40 @@ func (f *Filter_Handler) Filter(w http.ResponseWriter, r *http.Request) {
 }
 
 func (f *Filter_Handler) filter(data FilterRequest, target *[]models.Artist) {
-	//lets range over the artist repo
-	from, _ := strconv.Atoi(data.CreationFrom)
-	to, _ := strconv.Atoi(data.CreationTo)
-	members, _ := strconv.Atoi(data.Members)
-	//concerts := strings.Split(strings.ToLower(data.ConcertDate), " ")
+	from, err1 := strconv.Atoi(data.CreationFrom)
+	to, err2 := strconv.Atoi(data.CreationTo)
+	members, err3 := strconv.Atoi(data.Members)
+	if err1 != nil || err2 != nil || err3 != nil {
+		log.Println("Invalid filter input")
+
+	}
+	concerts := strings.ToLower(data.ConcertDate)
+
 	for _, artist := range f.Store.Artists {
-		// lets make the consitons to math the filterd informatio
-		craetionDate := artist.CreationDate
-		album := strings.Split(artist.FirstAlbum, "-")[2]
-		//includes := f.exist(artist.ID, concerts)
-		if (craetionDate >= from && craetionDate <= to) || (album >= data.AlbumFrom && album <= data.AlbumTo) || (len(artist.Members) == members) {
+		creationDate := artist.CreationDate
+
+		parts := strings.Split(artist.FirstAlbum, "-")
+		if len(parts) != 3 {
+			continue
+		}
+		albumYear := parts[2]
+
+		includes := f.exist(artist.ID, concerts)
+		if includes || (creationDate >= from && creationDate <= to) || (albumYear >= data.AlbumFrom && albumYear <= data.AlbumTo) || (len(artist.Members) == members) {
 			*target = append(*target, artist)
 		}
 	}
 }
 
-// func (f *Filter_Handler) exist(id int, consets []string) bool {
-// 	for _,loc := range consets {
-// 		if strings.Contains()
-// 	}
-// 	return false
-// }
+func (f *Filter_Handler) exist(id int, concerts string) bool {
+	locationSet := f.Store.Locations.Index[id-1]
+
+	//for _, loc := range concerts {
+	for _, location := range locationSet.Locations {
+		if strings.Contains(strings.ToLower(location), concerts) {
+			return true
+		}
+	}
+	//}
+	return false
+}
