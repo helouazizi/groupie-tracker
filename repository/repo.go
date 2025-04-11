@@ -66,7 +66,7 @@ func (s *Store) GetLocationById(id string) (models.Location, bool) {
 		return models.Location{}, false
 	}
 	s.Mutex.Lock()
-	location := s.Locations.Index[idint]
+	location := s.Locations.Index[idint-1]
 	s.Mutex.Unlock()
 	return location, true
 }
@@ -76,7 +76,7 @@ func (s *Store) GetDateById(id string) (models.Date, bool) {
 		return models.Date{}, false
 	}
 	s.Mutex.Lock()
-	Date := s.Dates.Index[idint]
+	Date := s.Dates.Index[idint-1]
 	s.Mutex.Unlock()
 	return Date, true
 }
@@ -87,7 +87,7 @@ func (s *Store) GetRealtionById(id string) (models.Relation, bool) {
 		return models.Relation{}, false
 	}
 	s.Mutex.Lock()
-	Relations := s.Realtions.Index[idint]
+	Relations := s.Realtions.Index[idint-1]
 	s.Mutex.Unlock()
 	return Relations, true
 }
