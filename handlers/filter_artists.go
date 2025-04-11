@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"groupie-tracker/models"
 	"groupie-tracker/repository"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -63,18 +63,23 @@ func (f *FilterHandler) Filter(w http.ResponseWriter, r *http.Request) {
 
 // applyFilters performs AND logic across all conditions
 func (f *FilterHandler) applyFilters(data FilterRequest, result *[]models.Artist) {
-	creationFrom, _ := strconv.Atoi(data.CreationFrom)
-	creationTo, _ := strconv.Atoi(data.CreationTo)
+	// Parse filter values
+	creationFrom, err1 := strconv.Atoi(data.CreationFrom)
+	creationTo, err2 := strconv.Atoi(data.CreationTo)
+	albumFrom, err3 := strconv.Atoi(data.AlbumFrom)
+	albumTo, err4 := strconv.Atoi(data.AlbumTo)
+	members, err5 := strconv.Atoi(data.Members)
 
-	albumFrom, _ := strconv.Atoi(data.AlbumFrom)
-	albumTo, _ := strconv.Atoi(data.AlbumTo)
+	if err1 != nil || err2 != nil || err3 != nil || err4 != nil || err5 != nil {
+		log.Println("Invalid filter input")
+	}
 
-	members, _ := strconv.Atoi(data.Members)
+	// Normalize the concert query
+	concerts := strings.ToLower(data.ConcertDate)
 
-	concertQuery := strings.ToLower(data.ConcertDate)
-
+	// Loop through all artists
 	for _, artist := range f.Store.Artists {
-		// ✅ Creation date filter
+		// ✅ Filter by creation date (inclusive range)
 		if creationFrom != 0 && artist.CreationDate < creationFrom {
 			continue
 		}
@@ -82,7 +87,7 @@ func (f *FilterHandler) applyFilters(data FilterRequest, result *[]models.Artist
 			continue
 		}
 
-		// ✅ First album year filter
+		// ✅ Filter by first album year (inclusive range)
 		parts := strings.Split(artist.FirstAlbum, "-")
 		if len(parts) != 3 {
 			continue
@@ -98,17 +103,17 @@ func (f *FilterHandler) applyFilters(data FilterRequest, result *[]models.Artist
 			continue
 		}
 
-		// ✅ Members filter
+		// ✅ Filter by number of members (exact match)
 		if members != 0 && len(artist.Members) != members {
 			continue
 		}
 
-		// ✅ Concert location filter
-		if concertQuery != "" && !f.matchLocation(artist.ID, concertQuery) {
+		// ✅ Filter by concert location (partial match)
+		if concerts != "" && !f.matchLocation(artist.ID, concerts) {
 			continue
 		}
 
-		// ✅ All conditions passed
+		// Add the artist to the filtered list
 		*result = append(*result, artist)
 	}
 }
@@ -137,7 +142,7 @@ func (f *FilterHandler) matchLocation(id int, query string) bool {
 		normalizedLoc = strings.ReplaceAll(normalizedLoc, ",", "-")
 
 		// Check if the query matches the location
-		fmt.Println(normalizedLoc, query)
+		//fmt.Println(normalizedLoc, query)
 		if strings.Contains(normalizedLoc, query) {
 			return true
 		}
