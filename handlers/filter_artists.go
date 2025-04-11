@@ -79,15 +79,15 @@ func (f *FilterHandler) applyFilters(data FilterRequest, result *[]models.Artist
 
 	// Loop through all artists
 	for _, artist := range f.Store.Artists {
-		// ✅ Filter by creation date (inclusive range)
-		if creationFrom != 0 && artist.CreationDate < creationFrom {
+		// ✅ Filter by creation date (after 2010)
+		if creationFrom != 0 && artist.CreationDate <= creationFrom {
 			continue
 		}
 		if creationTo != 0 && artist.CreationDate > creationTo {
 			continue
 		}
 
-		// ✅ Filter by first album year (inclusive range)
+		// ✅ Filter by first album year (after 2010)
 		parts := strings.Split(artist.FirstAlbum, "-")
 		if len(parts) != 3 {
 			continue
@@ -96,24 +96,20 @@ func (f *FilterHandler) applyFilters(data FilterRequest, result *[]models.Artist
 		if err != nil {
 			continue
 		}
-		if albumFrom != 0 && albumYear < albumFrom {
+		if albumFrom != 0 && albumYear <= albumFrom {
 			continue
 		}
 		if albumTo != 0 && albumYear > albumTo {
 			continue
 		}
-
-		// ✅ Filter by number of members (exact match)
-		if members != 0 && len(artist.Members) != members {
+		if members != 0 && (len(artist.Members) != members || members <= len(artist.Members)) {
 			continue
 		}
-
-		// ✅ Filter by concert location (partial match)
 		if concerts != "" && !f.matchLocation(artist.ID, concerts) {
 			continue
 		}
 
-		// Add the artist to the filtered list
+		// Add the artist to the filtered list if all conditions match
 		*result = append(*result, artist)
 	}
 }
