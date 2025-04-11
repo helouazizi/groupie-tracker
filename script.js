@@ -189,7 +189,7 @@ function filter() {
             creationDateTo: document.getElementById("creation-date-to").value,
             firstAlbumFrom: document.getElementById("first-album-from").value,
             firstAlbumTo: document.getElementById("first-album-to").value,
-            members: document.getElementById("members").value,
+            members: document.querySelector('input[name="members"]:checked').value,
             concertDates : document.getElementById("concert-dates").value,
         };
         console.log(data);
