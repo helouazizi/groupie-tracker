@@ -120,6 +120,7 @@ func (f *FilterHandler) matchLocation(id int, query string) bool {
 	query = strings.ToLower(strings.TrimSpace(query))
 	// Replace commas with hyphens for better matching
 	query = strings.ReplaceAll(query, ",", "-")
+	query = strings.ReplaceAll(query, " ", "")
 
 	// Log the query and the locations for debugging purposes
 	//log.Printf("Searching for concerts in: %s", query)
