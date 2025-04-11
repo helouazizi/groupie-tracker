@@ -6,11 +6,11 @@ import (
 	"net/http"
 )
 
-type Home_handler struct {
+type HomeHandler struct {
 	Store *repository.Store
 }
 
-func (h *Home_handler) Home(w http.ResponseWriter, r *http.Request) {
+func (h *HomeHandler) Home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*") // Fix CORS issues
 	if r.Method != http.MethodGet {

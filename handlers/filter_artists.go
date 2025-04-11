@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"groupie-tracker/models"
 	"groupie-tracker/repository"
-	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -18,21 +17,20 @@ type FilterRequest struct {
 	AlbumTo      string `json:"firstAlbumTo"`
 	Members      string `json:"members"`
 	ConcertDate  string `json:"concertDates"`
-	//Locations    []string `json:"locations"`
 }
 
-type Filter_Handler struct {
+type FilterHandler struct {
 	Store *repository.Store
 }
 
-func (f *Filter_Handler) Filter(w http.ResponseWriter, r *http.Request) {
-	// Set CORS headers for preflight and actual request
+func (f *FilterHandler) Filter(w http.ResponseWriter, r *http.Request) {
+	// ✅ CORS headers
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
 
-	// 🧠 Handle preflight OPTIONS request
+	// ✅ Handle preflight OPTIONS request
 	if r.Method == http.MethodOptions {
 		w.WriteHeader(http.StatusOK)
 		return
@@ -44,57 +42,104 @@ func (f *Filter_Handler) Filter(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var filterReq FilterRequest
-	err := json.NewDecoder(r.Body).Decode(&filterReq)
-	if err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&filterReq); err != nil {
 		http.Error(w, "Bad Request: "+err.Error(), http.StatusBadRequest)
 		return
 	}
-	var result []models.Artist
-	fmt.Println("Filter parameters:", filterReq)
-	f.filter(filterReq, &result)
+
+	var filtered []models.Artist
+	f.applyFilters(filterReq, &filtered)
+
+	if len(filtered) == 0 {
+		http.Error(w, "No matching artists found", http.StatusNotFound)
+		return
+	}
 
 	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(result); err != nil {
-		http.Error(w, "error finging the filtered info: "+err.Error(), http.StatusBadRequest)
-		return
+	if err := json.NewEncoder(w).Encode(filtered); err != nil {
+		http.Error(w, "Error encoding response: "+err.Error(), http.StatusInternalServerError)
 	}
 }
 
-func (f *Filter_Handler) filter(data FilterRequest, target *[]models.Artist) {
-	from, err1 := strconv.Atoi(data.CreationFrom)
-	to, err2 := strconv.Atoi(data.CreationTo)
-	members, err3 := strconv.Atoi(data.Members)
-	if err1 != nil || err2 != nil || err3 != nil {
-		log.Println("Invalid filter input")
+// applyFilters performs AND logic across all conditions
+func (f *FilterHandler) applyFilters(data FilterRequest, result *[]models.Artist) {
+	creationFrom, _ := strconv.Atoi(data.CreationFrom)
+	creationTo, _ := strconv.Atoi(data.CreationTo)
 
-	}
-	concerts := strings.ToLower(data.ConcertDate)
+	albumFrom, _ := strconv.Atoi(data.AlbumFrom)
+	albumTo, _ := strconv.Atoi(data.AlbumTo)
+
+	members, _ := strconv.Atoi(data.Members)
+
+	concertQuery := strings.ToLower(data.ConcertDate)
 
 	for _, artist := range f.Store.Artists {
-		creationDate := artist.CreationDate
+		// ✅ Creation date filter
+		if creationFrom != 0 && artist.CreationDate < creationFrom {
+			continue
+		}
+		if creationTo != 0 && artist.CreationDate > creationTo {
+			continue
+		}
 
+		// ✅ First album year filter
 		parts := strings.Split(artist.FirstAlbum, "-")
 		if len(parts) != 3 {
 			continue
 		}
-		albumYear := parts[2]
-
-		includes := f.exist(artist.ID, concerts)
-		if includes || (creationDate >= from && creationDate <= to) || (albumYear >= data.AlbumFrom && albumYear <= data.AlbumTo) || (len(artist.Members) == members) {
-			*target = append(*target, artist)
+		albumYear, err := strconv.Atoi(parts[2])
+		if err != nil {
+			continue
 		}
+		if albumFrom != 0 && albumYear < albumFrom {
+			continue
+		}
+		if albumTo != 0 && albumYear > albumTo {
+			continue
+		}
+
+		// ✅ Members filter
+		if members != 0 && len(artist.Members) != members {
+			continue
+		}
+
+		// ✅ Concert location filter
+		if concertQuery != "" && !f.matchLocation(artist.ID, concertQuery) {
+			continue
+		}
+
+		// ✅ All conditions passed
+		*result = append(*result, artist)
 	}
 }
 
-func (f *Filter_Handler) exist(id int, concerts string) bool {
-	locationSet := f.Store.Locations.Index[id-1]
+// matchLocation checks if the artist has a concert in the given location
+// matchLocation checks if the artist has a concert in the given location
+func (f *FilterHandler) matchLocation(id int, query string) bool {
+	// Ensure the query is case-insensitive and formatted consistently
+	query = strings.ToLower(strings.TrimSpace(query))
+	// Replace commas with hyphens for better matching
+	query = strings.ReplaceAll(query, ",", "-")
 
-	//for _, loc := range concerts {
-	for _, location := range locationSet.Locations {
-		if strings.Contains(strings.ToLower(location), concerts) {
+	// Log the query and the locations for debugging purposes
+	//log.Printf("Searching for concerts in: %s", query)
+
+	if id <= 0 || id > len(f.Store.Locations.Index) {
+		return false
+	}
+
+	// Loop through each concert location and compare
+	for _, loc := range f.Store.Locations.Index[id-1].Locations {
+		// Normalize the location by trimming spaces and converting to lowercase
+		normalizedLoc := strings.ToLower(strings.TrimSpace(loc))
+		// Replace commas with hyphens in the location string for consistent matching
+		normalizedLoc = strings.ReplaceAll(normalizedLoc, ",", "-")
+
+		// Check if the query matches the location
+		fmt.Println(normalizedLoc, query)
+		if strings.Contains(normalizedLoc, query) {
 			return true
 		}
 	}
-	//}
 	return false
 }

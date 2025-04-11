@@ -182,38 +182,80 @@ function showErrorPage(message) {
 
 function filter() {
     document.getElementById("filters-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-        e.preventDefault() // prwvent the event to focouse on our js logic below
-        const data = {
-            creationDateFrom: document.getElementById("creation-date-from").value,
-            creationDateTo: document.getElementById("creation-date-to").value,
-            firstAlbumFrom: document.getElementById("first-album-from").value,
-            firstAlbumTo: document.getElementById("first-album-to").value,
-            members: document.querySelector('input[name="members"]:checked').value,
-            concertDates : document.getElementById("concert-dates").value,
-        };
-        console.log(data);
-        
-        const res = await fetch("http://localhost:8080/filter", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-            
-            
-        });
+        const submitButton = e.submitter;
+        submitButton.disabled = true;
+        submitButton.textContent = "Filtering...";
 
-        if (res.ok) {
-            const result = await res.json();
-            console.log("Filtered data:", result);
-            displayArtists(result)
-            // You could update your UI with the result here
-        } else {
-            console.error("Failed to filter artists");
+        const creationDateFrom = document.getElementById("creation-date-from").value;
+        const creationDateTo = document.getElementById("creation-date-to").value;
+        const firstAlbumFrom = document.getElementById("first-album-from").value;
+        const firstAlbumTo = document.getElementById("first-album-to").value;
+        const concertDates = document.getElementById("concert-dates").value;
+        const membersRadio = document.querySelector('input[name="members"]:checked');
+        const members = membersRadio ? membersRadio.value : "";
+
+        // Validate numeric fields
+        const yearFields = [
+            { name: "Creation Date From", value: creationDateFrom },
+            { name: "Creation Date To", value: creationDateTo },
+            { name: "First Album From", value: firstAlbumFrom },
+            { name: "First Album To", value: firstAlbumTo },
+        ];
+
+        for (let field of yearFields) {
+            if (field.value && (isNaN(field.value) || parseInt(field.value) < 0)) {
+                showErrorPage(`Invalid year for "${field.name}". Please enter a valid number.`);
+                submitButton.disabled = false;
+                submitButton.textContent = "Filter";
+                return;
+            }
         }
-    })
+
+        const filterData = {
+            creationDateFrom,
+            creationDateTo,
+            firstAlbumFrom,
+            firstAlbumTo,
+            members,
+            concertDates,
+        };
+
+        try {
+            const response = await fetch("http://localhost:8080/filter", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(filterData),
+            });
+
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                showErrorPage(`Server Error: ${response.status} ${response.statusText} - ${errorMessage}`);
+                return;
+            }
+
+            const result = await response.json();
+
+            if (!Array.isArray(result) || result.length === 0) {
+                showErrorPage("No artists matched your filters.");
+                return;
+            }
+
+            displayArtists(result);
+
+        } catch (error) {
+            console.error("Error filtering artists:", error);
+            showErrorPage("Something went wrong while contacting the server.");
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Filter";
+        }
+    });
 }
+
 
 
 fetchArtists();
