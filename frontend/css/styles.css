@@ -1,0 +1,25 @@
+@import url("header.css");
+
+/* Default Light Mode */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+/* Dark Mode Variables */
+body.dark {
+  --bg-color: #121212;
+  --text-color: #f0f0f0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
