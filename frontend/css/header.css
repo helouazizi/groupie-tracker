@@ -1,33 +1,30 @@
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: var(--bg-color);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  
-  header button {
-    background-color: transparent;
-    border: none;
-    font-size: 2rem;
-    color: var(--text-color);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-  }
-  
-  header button:hover {
-    background-color: var(--text-color);
-    color: var(--bg-color);
-  }
-  
-  /* When in dark mode, change sun to moon */
-  body.dark header button {
-    color: var(--bg-color);
-  }
-  
+/* header.css */
+header .logo-container {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+header h1 {
+  margin-right: 15px;
+  font-size: 1.5rem;
+}
+
+button {
+  background: var(--button-bg);
+  border: none;
+  color: var(--highlight-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform var(--transition-speed),
+    background-color var(--transition-speed);
+}
+
+button:hover {
+  transform: scale(1.1);
+  background-color: var(--button-hover-bg);
+}

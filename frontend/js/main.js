@@ -1,12 +1,7 @@
 import { fetchArtists } from "./api.js";
-import { toggleDarkMode, applySavedTheme } from './theme.js';
 import { renderArtists } from "./dom.js";
-
+themeToggleButton.addEventListener("click", toggleTheme);
 document.addEventListener("DOMContentLoaded", async () => {
-  applySavedTheme();
-
-  const toggleBtn = document.getElementById("theme-toggle");
-  toggleBtn.addEventListener("click", toggleDarkMode);
   const data = await fetchArtists();
   renderArtists(data);
   //setupFilters(data);

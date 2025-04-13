@@ -1,22 +1,35 @@
-@import url("header.css");
-@import url("container.css");
-/* Default Light Mode */
-:root {
-    --bg-color: #fff;
-    --text-color: #333;
-    --secondary-text-color: #666;
-    --card-bg-color: #f9f9f9;
-    --footer-bg-color: #f1f1f1;
-    --border-color: #ddd;
-  }
-  
-  /* Dark Mode Colors */
-  body.dark {
-    --bg-color: #121212;
-    --text-color: #f1f1f1;
-    --secondary-text-color: #bbb;
-    --card-bg-color: #1e1e1e;
-    --footer-bg-color: #2c2c2c;
-    --border-color: #444;
-  }
-  
+/* styles.css */
+@import './header.css';
+@import './filters.css';
+@import './container.css';
+@import './variables.css';
+
+/* Global Styles */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+body.light {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+body.dark {
+  background-color: var(--primary-bg);
+  color: var(--secondary-text);
+}
+
+header,
+footer {
+  background-color: var(--highlight-bg);
+  color: var(--highlight-text);
+}

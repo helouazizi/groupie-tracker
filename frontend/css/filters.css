@@ -1,0 +1,13 @@
+/* filters.css */
+#filters {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: var(--secondary-bg);
+    border-radius: 8px;
+  }
+  
+  #filters h2 {
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+  }
+  
