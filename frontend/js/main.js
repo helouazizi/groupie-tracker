@@ -4,7 +4,7 @@ import { renderArtists } from "./dom";
 document.addEventListener("DOMContentLoaded", async () => {
   const data = await fetchArtists();
   renderArtists(data);
-  setupFilters(data);
+  //setupFilters(data);
 });
 
 // async function fetchArtists() {
