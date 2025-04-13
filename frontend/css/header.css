@@ -1,13 +1,11 @@
 /* header.css */
-header  {
-    padding: 1% 10%;
+header {
+  padding: 2% 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   justify-content: space-between;
 }
-
-
 
 header h1 {
   margin-right: 15px;
@@ -22,9 +20,4 @@ button {
   cursor: pointer;
   transition: transform var(--transition-speed),
     background-color var(--transition-speed);
-}
-
-button:hover {
-  transform: scale(1.1);
-  /* background-color: var(--button-hover-bg); */
 }
