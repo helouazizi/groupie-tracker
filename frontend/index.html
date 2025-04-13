@@ -16,8 +16,69 @@
     <main>
       <section id="filters">
         <h2>Filter Artists</h2>
-        <!-- Filter Controls (e.g., ranges, checkboxes) will go here -->
+        <form id="filter-form" method="GET">
+          <div class="filter-group">
+            <!-- Creation Date Range -->
+            <div class="filter-item">
+              <label>Creation Date:</label>
+              <div class="range-pair">
+                <div class="range-group">
+                  <span id="creationFromValue">1950</span>
+                  <input type="range" id="creationFrom" name="creationFrom" min="1950" max="2025" value="2000" />
+                </div>
+                <div class="range-group">
+                  <span id="creationToValue">2025</span>
+                  <input type="range" id="creationTo" name="creationTo" min="1950" max="2025" value="2000" />
+                </div>
+              </div>
+            </div>
+      
+            <!-- First Album Year Range -->
+            <div class="filter-item">
+              <label>First Album Year:</label>
+              <div class="range-pair">
+                <div class="range-group">
+                  <span id="albumFromValue">1950</span>
+                  <input type="range" id="albumFrom" name="albumFrom" min="1950" max="2025" value="2000" />
+                </div>
+                <div class="range-group">
+                  <span id="albumToValue">2025</span>
+                  <input type="range" id="albumTo" name="albumTo" min="1950" max="2025" value="2000" />
+                </div>
+              </div>
+            </div>
+      
+            <!-- Locations Input -->
+            <div class="filter-item">
+              <label for="location-input">Concert Location:</label>
+              <input type="text" id="location-input" name="location" placeholder="e.g., Paris, London" />
+            </div>
+      
+            <!-- Number of Members -->
+            <div class="filter-item">
+              <span>Number of Members:</span>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="members" value="1" /> 1</label>
+                <label><input type="checkbox" name="members" value="2" /> 2</label>
+                <label><input type="checkbox" name="members" value="3" /> 3</label>
+                <label><input type="checkbox" name="members" value="4" /> 4</label>
+                <label><input type="checkbox" name="members" value="5" /> 5</label>
+                <label><input type="checkbox" name="members" value="6" /> 6</label>
+                <label><input type="checkbox" name="members" value="7" /> 7</label>
+                <label><input type="checkbox" name="members" value="8" /> 8</label>
+                <label><input type="checkbox" name="members" value="9" /> 9</label>
+              </div>
+            </div>
+      
+            <!-- Filter Buttons -->
+            <div class="filter-item">
+              <button type="reset">Reset</button>
+              <button type="submit">Apply Filters</button>
+            </div>
+          </div>
+        </form>
       </section>
+      
       <section id="container">
         <!-- Artist cards will render here -->
       </section>
