@@ -1,6 +1,6 @@
 import { fetchArtists } from "./api.js";
 import { renderArtists } from "./dom.js";
-themeToggleButton.addEventListener("click", toggleTheme);
+
 document.addEventListener("DOMContentLoaded", async () => {
   const data = await fetchArtists();
   renderArtists(data);
