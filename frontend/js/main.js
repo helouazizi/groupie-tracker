@@ -1,4 +1,5 @@
 import { fetchArtists } from "./api";
+import { renderArtists } from "./dom";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const data = await fetchArtists();
