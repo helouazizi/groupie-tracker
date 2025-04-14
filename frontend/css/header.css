@@ -1,0 +1,9 @@
+header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px var(--side-Pading);
+    background-color: var(--color-primary-dark);
+    box-shadow: var(--shadow-default);
+    font-family: var(--font-primary);
+}
