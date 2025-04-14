@@ -6,4 +6,5 @@ header {
     background-color: var(--color-primary-dark);
     box-shadow: var(--shadow-default);
     font-family: var(--font-primary);
+    color: var(--color-primary);
 }
