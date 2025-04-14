@@ -1,10 +1,8 @@
 import { fetchArtists } from "./api.js";
 import { renderArtists } from "./dom.js";
-import { toggleDarkMode } from "./theme.js";
+
 
 document.addEventListener("DOMContentLoaded", async () => {
- // toggleDarkMode();
-  window.toggleDarkMode = toggleDarkMode;
   const data = await fetchArtists();
   renderArtists(data);
   //setupFilters(data);
