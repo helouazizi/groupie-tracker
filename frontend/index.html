@@ -11,7 +11,6 @@
     <!-- Default to light mode -->
     <header>
       <h1>G-Tracker</h1>
-      <button id="theme-toggle" onclick="toggleDarkMode()">☀️</button>
     </header>
     <main>
       <section id="filters">
@@ -20,17 +19,8 @@
           <div class="filter-group">
             <!-- Creation Date Range -->
             <div class="filter-item">
-              <label>Creation Date:</label>
-              <div class="range-pair">
-                <div class="range-group">
-                  <span id="creationFromValue">1950</span>
-                  <input type="range" id="creationFrom" name="creationFrom" min="1950" max="2025" value="2000" />
-                </div>
-                <div class="range-group">
-                  <span id="creationToValue">2025</span>
-                  <input type="range" id="creationTo" name="creationTo" min="1950" max="2025" value="2000" />
-                </div>
-              </div>
+              <label for="creation-from">Creation Date:</label>
+              <input type="range" min="1900" max="2025" step="1" value="2020">
             </div>
       
             <!-- First Album Year Range -->
