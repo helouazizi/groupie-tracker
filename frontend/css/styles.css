@@ -3,7 +3,7 @@
 @import url(filters.css);
 @import url(container.css);
 
-*{
+* {
     padding: 0%;
     margin: 0%;
     box-sizing: border-box;
@@ -13,7 +13,20 @@ a {
     text-decoration: none;
 }
 
+input[type="radio"] {
+    appearance: none;
+    /* -webkit-appearance: none; */
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-primary, #555);
+    background-color: white;
+    border-radius: 4px;
+    /* Make it square instead of round */
+    display: inline-block;
+    position: relative;
+    transition: 0.2s ease-in-out;
+}
 
-
-
-
+input[type="radio"]:checked {
+    background-color: var(--color-primary, #555);
+}
