@@ -54,8 +54,22 @@
 
 
 .backhome-btn{
-  padding: 10px 50px;
+  padding: 10px 100px;
   border: none;
   border-radius: 5px;
   text-align: center;
+  background-color: #333;
+  cursor: pointer;
+  a{
+    color: #ffffff;
+    font-size: small;
+  }
+}
+
+.backhome-btn:hover{
+  background-color: rgb(64, 65, 65);
+  a{
+    color: #000000;
+    font-size: small;
+  }
 }
