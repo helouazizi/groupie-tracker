@@ -2,6 +2,7 @@
 @import url(header.css);
 @import url(filters.css);
 @import url(container.css);
+@import url(footer.css);
 
 * {
     padding: 0%;
