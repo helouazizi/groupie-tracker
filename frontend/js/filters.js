@@ -1,23 +1,23 @@
 import { renderArtists } from './dom.js'
 
-export function setupFilters(data) {
+export function setupFilters() {
   const form = document.getElementById('filter-form')
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault()
 
-    const formData = new FormData(form)
+    //const formData = new FormData(form)
 
     // Extract and convert filter values
     const filters = {
-      creationDateFrom: parseInt(form.querySelector('input[name="creation-from"]')?.value || 0),
-      creationDateTo: parseInt(form.querySelector('input[name="creation-to"]')?.value || 0),
-      firstAlbumFrom: parseInt(form.querySelector('input[name="album-from"]')?.value || 0),
-      firstAlbumTo: parseInt(form.querySelector('input[name="album-to"]')?.value || 0),
-      members: parseInt(form.querySelector('input[name="members"]:checked')?.value || 0),
+      creationDateFrom: (form.querySelector('input[name="creation-from"]')?.value || "0"),
+      creationDateTo: (form.querySelector('input[name="creation-to"]')?.value || "0"),
+      firstAlbumFrom: (form.querySelector('input[name="album-from"]')?.value || "0"),
+      firstAlbumTo: (form.querySelector('input[name="album-to"]')?.value || "0"),
+      members: (form.querySelector('input[name="members"]:checked')?.value || "0"),
       concertDates: form.querySelector('#location-input')?.value.trim() || "",
     }
-    
+
 
     console.log(filters);
 
