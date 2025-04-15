@@ -69,7 +69,7 @@ function displayArtistDetails(data) {
         <h3>Concerts by Location</h3>
         ${datesByLocation}
       </div>
-      <button></button>
+      <button class="backhome-btn"><a href="/frontend/">Back Home</a></button>
     `
   }
   
