@@ -1,4 +1,5 @@
-import { renderArtists } from './dom.js'
+import { renderArtists ,touchedInputs } from './dom.js'
+
 
 export function setupFilters() {
   const form = document.getElementById('filter-form')
@@ -10,13 +11,27 @@ export function setupFilters() {
 
     // Extract and convert filter values
     const filters = {
-      creationDateFrom: (form.querySelector('input[name="creation-from"]')?.value || "0"),
-      creationDateTo: (form.querySelector('input[name="creation-to"]')?.value || "0"),
-      firstAlbumFrom: (form.querySelector('input[name="album-from"]')?.value || "0"),
-      firstAlbumTo: (form.querySelector('input[name="album-to"]')?.value || "0"),
-      members: (form.querySelector('input[name="members"]:checked')?.value || "0"),
+      creationDateFrom: touchedInputs.has("creation-from")
+        ? form.querySelector('input[name="creation-from"]').value
+        : "0",
+    
+      creationDateTo: touchedInputs.has("creation-to")
+        ? form.querySelector('input[name="creation-to"]').value
+        : "0",
+    
+      firstAlbumFrom: touchedInputs.has("album-from")
+        ? form.querySelector('input[name="album-from"]').value
+        : "0",
+    
+      firstAlbumTo: touchedInputs.has("album-to")
+        ? form.querySelector('input[name="album-to"]').value
+        : "0",
+    
+      members: form.querySelector('input[name="members"]:checked')?.value || "0",
+    
       concertDates: form.querySelector('#location-input')?.value.trim() || "",
-    }
+    };
+    
 
 
     console.log(filters);

@@ -16,20 +16,24 @@ export function renderArtists(artists) {
   });
 }
 
-
+const touchedInputs = new Set();
+export{ touchedInputs}
 export function updateRangeValues() {
-  const ranges = document.querySelectorAll('input[type="range"]')
-  ranges.forEach((range) => {
-    const label = document.getElementById(`${range.id}-value`)
-    if (label) {
-      // Set initial value
-      label.textContent = range.value
+  const ranges = document.querySelectorAll('input[type="range"]');
 
-      // Update on input
-      range.addEventListener('input', () => {
-        label.textContent = range.value
-      })
-    }
-  })
+  ranges.forEach((range) => {
+    const label = document.getElementById(`${range.id}-value`);
+    if (!label) return;
+
+    // Initial value display
+    label.textContent = range.value;
+
+    // Update display + mark as touched
+    range.addEventListener('input', () => {
+      label.textContent = range.value;
+      touchedInputs.add(range.name);
+    });
+  });
 }
+
 
