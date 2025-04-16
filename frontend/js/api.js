@@ -1,10 +1,22 @@
 
 import { renderError } from "./error.js"
+import { renderArtists } from "./dom.js"
 export async function fetchArtists() {
   try {
     const res = await fetch('http://localhost:8080/api/artists')
     if (!res.ok) throw new Error('Failed to fetch')
-    return await res.json()
+    const data = await res.json()
+
+    if (!res.ok) {
+      // render backend error with status
+      renderError({
+        status: res.status,
+        message: data.message || "Unknown error",
+        details: data.details || ""
+      });
+      return;
+    }
+    renderArtists(data);
   } catch (err) {
     // network failure or invalid JSON
     renderError({
