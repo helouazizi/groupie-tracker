@@ -1,6 +1,5 @@
 
-import { renderError } from "./error.js"
-import { renderArtists } from "./dom.js"
+import { renderArtists, renderError } from "./dom.js"
 export async function fetchArtists() {
   try {
     const res = await fetch('http://localhost:8080/api/artists')
@@ -24,6 +23,6 @@ export async function fetchArtists() {
       message: "Failed to connect to server.",
       details: err.message
     });
-    return []
+
   }
 }

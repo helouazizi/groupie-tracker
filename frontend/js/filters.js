@@ -1,5 +1,4 @@
-import { renderArtists, touchedInputs } from './dom.js'
-import { renderError } from './error.js'
+import { renderArtists, touchedInputs , renderError } from './dom.js'
 
 
 export function setupFilters() {
@@ -7,7 +6,7 @@ export function setupFilters() {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault()
-    
+
     const filters = {
       creationDateFrom: touchedInputs.has("creation-from")
         ? form.querySelector('input[name="creation-from"]').value
