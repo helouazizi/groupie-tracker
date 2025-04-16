@@ -6,7 +6,12 @@ export async function fetchArtists() {
     if (!res.ok) throw new Error('Failed to fetch')
     return await res.json()
   } catch (err) {
-    console.error(err)
+    // network failure or invalid JSON
+    renderError({
+      status: "Network Error",
+      message: "Failed to connect to server.",
+      details: err.message
+    });
     return []
   }
 }
