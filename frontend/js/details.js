@@ -1,26 +1,40 @@
-export function artistDetails() {
+import { renderError } from "./error.js";
 
+export function artistDetails() {
     const buttons = container.querySelectorAll(".details-btn");
+
     buttons.forEach((btn) => {
-        btn.addEventListener("click", async (e) => {
+        btn.addEventListener("click", async () => {
             const artistId = btn.dataset.id;
-            console.log(`http://localhost:8080/api/artists?id=${artistId}`);
-            
+
             try {
                 const res = await fetch(`http://localhost:8080/api/artists?id=${artistId}`);
-                if (!res.ok) throw new Error("Failed to fetch artist details");
-                const artistDetails = await res.json();
-                //console.log("Artist Details:", artistDetails);
-                displayArtistDetails(artistDetails)
-                // You can display the artistDetails however you like:
-                // showModal(artistDetails), renderDetailsPanel(artistDetails), etc.
-                //alert(`Artist: ${artistDetails.name}\nFirst Album: ${artistDetails.firstAlbum}`);
+                const data = await res.json(); // always parse JSON
+
+                if (!res.ok) {
+                    // render backend error with status
+                    renderError({
+                        status: res.status,
+                        message: data.message || "Unknown error",
+                        details: data.details || ""
+                    });
+                    return;
+                }
+
+                displayArtistDetails(data);
+
             } catch (err) {
-                console.error("Error fetching artist details:", err);
+                // network failure or invalid JSON
+                renderError({
+                    status: "Network Error",
+                    message: "Failed to connect to server.",
+                    details: err.message
+                });
             }
         });
     });
 }
+
 
 
 function displayArtistDetails(data) {

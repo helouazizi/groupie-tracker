@@ -3,6 +3,7 @@
 @import url(filters.css);
 @import url(container.css);
 @import url(footer.css);
+@import url(error.css);
 
 * {
     padding: 0%;
