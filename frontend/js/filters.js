@@ -31,10 +31,6 @@ export function setupFilters() {
     
       concertDates: form.querySelector('#location-input')?.value.trim() || "",
     };
-    
-
-
-    console.log(filters);
 
     try {
       const res = await fetch('http://localhost:8080/api/artists', {
