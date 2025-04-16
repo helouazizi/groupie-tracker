@@ -1,3 +1,5 @@
+
+import { renderError } from "./error.js"
 export async function fetchArtists() {
   try {
     const res = await fetch('http://localhost:8080/api/artists')
