@@ -1,39 +1,23 @@
 import { renderError } from "./dom.js";
+import { loadHomePage } from "./main.js";
 
 export async function artistDetails() {
- // const container = document.getElementById("container"); 
+  // const container = document.getElementById("container"); 
   const buttons = document.body.querySelectorAll(".details-btn");
-  console.log(buttons);
+  //console.log(buttons);
   buttons.forEach((btn) => {
-    btn.addEventListener("click", async () => {
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
       const artistId = btn.dataset.id;
-      console.log(artistId);
+      // console.log(artistId);
       try {
         const res = await fetch(`http://localhost:8080/api/artists/details?id=${artistId}`);
         const data = await res.json(); // always parse JSON
-
-        if (!res.ok) {
-          // // If backend returned an error with JSON body
-          // const errorBody = await res.json()
-          // console.log(errorBody);
-
-          throw {
-            status: res.status,
-            message: data.message || "Server error",
-            details: data.details || ""
-          }
-
-        }
-
         displayArtistDetails(data);
-
       } catch (err) {
         // network failure or invalid JSON
-        renderError({
-          status: err.status || "Network Error",
-          message: err.message || "Something went wrong",
-          details: err.details || ""
-        })
+        renderError(err)
+        return
       }
     });
   });
@@ -43,7 +27,6 @@ export async function artistDetails() {
 
 function displayArtistDetails(data) {
   const container = document.getElementById('container')
-  const panel = document.getElementById('artist-details-panel')
 
   const { ArtistInfo, Locations, Dates, Relations } = data
 
@@ -82,12 +65,12 @@ function displayArtistDetails(data) {
         <h3>Concert Dates</h3>
         <ul>${concertDates}</ul>
       </div>
-  
       <div class="card">
         <h3>Concerts by Location</h3>
         ${datesByLocation}
       </div>
-      <button class="backhome-btn"><a href="/frontend/">Back Home</a></button>
+      <button class="home-btn" id="back-home-btn">Back Home</button>
     `
+  document.getElementById("back-home-btn").addEventListener("click", loadHomePage);
 }
 

@@ -30,7 +30,7 @@
     text-align: left;
   }
   
-  .backhome-btn {
+  .home-btn {
     margin-top: 1.5rem;
     background-color: #991b1b;
     color: #fff;
@@ -41,12 +41,12 @@
     cursor: pointer;
   }
   
-  .backhome-btn a {
+  .home-btn a {
     color: inherit;
     text-decoration: none;
   }
   
-  .backhome-btn:hover {
+  .home-btn:hover {
     background-color: #7f1d1d;
   }
   

@@ -1,3 +1,5 @@
+import { loadHomePage } from "./main.js";
+
 export function renderArtists(artists) {
   const container = document.getElementById("container");
   container.innerHTML = "";
@@ -52,10 +54,13 @@ export function renderError(err) {
     <h1>Oooops 😬</h1>
     <p><strong>${err.status || "Error"}</strong> | ${err.message || "Something went wrong."}</p>
     ${err.details ? `<pre>${err.details}</pre>` : ""}
-    <button class="backhome-btn"><a href="/frontend/">Back Home</a></button>
+    <button class = "home-btn" id="back-home-btn">Back Home</button>
   `;
 
   document.body.appendChild(errorContent);
+  document.getElementById("back-home-btn").addEventListener("click", loadHomePage);
 }
+
+
 
 

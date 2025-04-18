@@ -38,27 +38,11 @@ export function setupFilters() {
         body: JSON.stringify(filters)
       })
       const data = await res.json()
-      console.log(res.status);
-      
-      console.log(data);
-
-
-      if (!res.ok) {
-        throw {
-          status: res.status,
-          message: data.message || "Server error",
-          details: data.details || ""
-        }
-
-      }
-      renderArtists(filteredArtists)
+      renderArtists(data)
     } catch (err) {
       // network failure or invalid JSON
-      renderError({
-        status: err.status || "Network Error",
-        message: err.message || "Something went wrong",
-        details: err.details || ""
-      })
+      renderError(err)
+      
     }
   })
 }
