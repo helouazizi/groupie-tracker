@@ -1,4 +1,4 @@
-import { renderError } from "./error.js"
+import { renderError } from "./dom.js"
 
 export async function fetchArtists() {
   try {
