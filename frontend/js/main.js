@@ -4,12 +4,12 @@ import { darckMode } from "./theme.js";
 import { updateRangeValues, renderArtists } from "./dom.js";
 import { setupFilters } from "./filters.js";
 
-document.addEventListener("DOMContentLoaded", async (e) => {
-  darckMode()
-  updateRangeValues()
-  fetchArtists()
-  setupFilters()
-});
+//document.addEventListener("DOMContentLoaded", async (e) => {
+darckMode()
+updateRangeValues()
+fetchArtists()
+setupFilters()
+//});
 
 
 
