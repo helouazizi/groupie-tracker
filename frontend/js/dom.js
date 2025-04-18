@@ -110,10 +110,13 @@ const touchedInputs = new Set();
   errorContent.innerHTML = `
     <h1>Oooops 😬</h1>
     <p><strong>${err.status || "Error"}</strong> | ${err.message || "Something went wrong."}</p>
-    <button class = "home-btn"><a href='/frontend/'>Back Home</a></button>
+    <button class = "home-btn"id="back-home-btn""><a href='/frontend/'>Back Home</a></button>
   `;
 
   document.body.appendChild(errorContent);
+  // document.getElementById("back-home-btn").addEventListener("click", () => {
+  //   location.reload(); // just reloads the page
+  // });
   
 }
 
