@@ -6,19 +6,22 @@ export function artistDetails() {
   buttons.forEach((btn) => {
     btn.addEventListener("click", async () => {
       const artistId = btn.dataset.id;
-
+      console.log(artistId);
       try {
-        const res = await fetch(`http://localhost:8080/api/artists?id=${artistId}`);
+        const res = await fetch(`http://localhost:8080/api/artists/details?id=${artistId}`);
         const data = await res.json(); // always parse JSON
 
         if (!res.ok) {
-          // render backend error with status
-          renderError({
+          // // If backend returned an error with JSON body
+          // const errorBody = await res.json()
+          // console.log(errorBody);
+
+          throw {
             status: res.status,
-            message: data.message || "Unknown error",
+            message: data.message || "Server error",
             details: data.details || ""
-          });
-          return;
+          }
+
         }
 
         displayArtistDetails(data);
@@ -26,10 +29,10 @@ export function artistDetails() {
       } catch (err) {
         // network failure or invalid JSON
         renderError({
-          status: "Network Error",
-          message: "Failed to connect to server.",
-          details: err.message
-        });
+          status: err.status || "Network Error",
+          message: err.message || "Something went wrong",
+          details: err.details || ""
+        })
       }
     });
   });

@@ -4,10 +4,10 @@ import { renderError } from './error.js'
 
 export function setupFilters() {
   const form = document.getElementById('filter-form')
-
+  
   form.addEventListener('submit', async (e) => {
     e.preventDefault()
-    
+
     const filters = {
       creationDateFrom: touchedInputs.has("creation-from")
         ? form.querySelector('input[name="creation-from"]').value
@@ -31,7 +31,7 @@ export function setupFilters() {
     };
 
     try {
-      const res = await fetch('http://localhost:8080/api/artists', {
+      const res = await fetch('http://localhost:8080/api/artists/filter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -39,23 +39,27 @@ export function setupFilters() {
         body: JSON.stringify(filters)
       })
       const data = await res.json()
+      console.log(res.status);
+      
+      console.log(data);
+
+
       if (!res.ok) {
-        // render backend error with status
-        renderError({
+        throw {
           status: res.status,
-          message: data.message || "Unknown error",
+          message: data.message || "Server error",
           details: data.details || ""
-        });
-        return;
+        }
+
       }
       renderArtists(filteredArtists)
     } catch (err) {
       // network failure or invalid JSON
       renderError({
-        status: "Network Error",
-        message: "Failed to connect to server.",
-        details: err.message
-      });
+        status: err.status || "Network Error",
+        message: err.message || "Something went wrong",
+        details: err.details || ""
+      })
     }
   })
 }

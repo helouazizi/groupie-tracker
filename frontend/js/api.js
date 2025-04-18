@@ -1,29 +1,28 @@
-
 import { renderError } from "./error.js"
-import { renderArtists } from "./dom.js"
+
 export async function fetchArtists() {
   try {
     const res = await fetch('http://localhost:8080/api/artists')
-    if (!res.ok) throw new Error('Failed to fetch')
-    const data = await res.json()
-
     if (!res.ok) {
-      // render backend error with status
-      renderError({
+      // If backend returned an error with JSON body
+      const errorBody =  await res.json() 
+      console.log(errorBody);
+      
+      throw {
         status: res.status,
-        message: data.message || "Unknown error",
-        details: data.details || ""
-      });
-      return;
+        message: errorBody.message || "Server error",
+        details: errorBody.details || ""
+      }
     }
-    renderArtists(data);
+    // At this point, we are sure it's a valid response
+    const data = await res.json()
+    return data
   } catch (err) {
-    // network failure or invalid JSON
     renderError({
-      status: "Network Error",
-      message: "Failed to connect to server.",
-      details: err.message
-    });
+      status: err.status || "Network Error",
+      message: err.message || "Something went wrong",
+      details: err.details || ""
+    })
     return []
   }
 }
