@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <title>Groupie-Tracker Filters</title>
+  <script defer type="module" src="./js/main.js"></script>
+</head>
+
+<body class="light">
+  <!-- Default to light mode -->
+  <header>
+    <h1>G-Tracker</h1>
+  </header>
+  <main>
+    <section id="filters">
+      <h2>Filter Artists</h2>
+      <form id="filter-form" method="POST">
+        <div class="filter-group">
+          <!-- Creation Date -->
+          <div class="filter-item">
+            <h3>Creation Date</h3>
+            <label for="creation-from">From: <span id="creation-from-value">1900</span></label>
+            <input type="range" id="creation-from" name="creation-from" min="1900" max="2025" step="1" value="0">
+
+            <label for="creation-to">To: <span id="creation-to-value">2025</span></label>
+            <input type="range" id="creation-to" name="creation-to" min="1900" max="2025" step="1" value="0">
+          </div>
+
+          <!-- First Album -->
+          <div class="filter-item">
+            <h3>First Album</h3>
+            <label for="album-from">From: <span id="album-from-value">1900</span></label>
+            <input type="range" id="album-from" name="album-from" min="1900" max="2025" step="1" value="0">
+
+            <label for="album-to">To: <span id="album-to-value">2025</span></label>
+            <input type="range" id="album-to" name="album-to" min="1900" max="2025" step="1" value="0">
+          </div>
+
+
+          <!-- Locations Input -->
+          <div class="filter-item">
+            <h2>Concert Date</h2>
+            <input type="text" id="location-input" name="location" placeholder="e.g., Paris, London" />
+          </div>
+
+          <!-- Number of Members -->
+          <div class="filter-item">
+            <h2>Number Of Mumbers</h2>
+            <div class="checkbox-group">
+              <label><input type="radio" name="members" value="1" /> 1</label>
+              <label><input type="radio" name="members" value="2" /> 2</label>
+              <label><input type="radio" name="members" value="3" /> 3</label>
+              <label><input type="radio" name="members" value="4" /> 4</label>
+              <label><input type="radio" name="members" value="5" /> 5</label>
+              <label><input type="radio" name="members" value="6" /> 6</label>
+              <label><input type="radio" name="members" value="7" /> 7</label>
+              <label><input type="radio" name="members" value="8" /> 8</label>
+              <label><input type="radio" name="members" value="9" /> 9</label>
+            </div>
+          </div>
+        </div>
+        <!-- Filter Buttons -->
+        <div class="filter-item actions">
+          <button type="reset">Reset</button>
+          <button type="submit">Apply Filters</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="container">
+      <!-- Artist cards will render here -->
+    </section>
+  </main>
+  <footer>
+    <p>Made with ❤️ by Your Name</p>
+  </footer>
+</body>
+
+</html>
