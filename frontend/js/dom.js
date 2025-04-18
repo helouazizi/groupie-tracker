@@ -1,6 +1,5 @@
-import { loadHomePage } from "./main.js";
 
-export function renderArtists(artists) {
+ function renderArtists(artists) {
   const container = document.getElementById("container");
   container.innerHTML = "";
 
@@ -23,9 +22,67 @@ export function renderArtists(artists) {
   });
 }
 
+function renderArtistDetails(data) {
+  const container = document.getElementById('container')
+
+  const { ArtistInfo, Locations, Dates, Relations } = data
+
+  const locations = Locations.locations.map(loc => `<li>${loc.replace(/-/g, ', ').replace(/_/g, ' ')}</li>`).join("")
+  const concertDates = Dates.dates.map(date => `<li>${date.replace('*', '')}</li>`).join("")
+  const members = ArtistInfo.members.map(m => `<li>${m}</li>`).join("")
+
+  const datesByLocation = Object.entries(Relations.datesLocations)
+    .map(([place, dates]) => {
+      const prettyPlace = place.replace(/-/g, ', ').replace(/_/g, ' ')
+      const dateList = dates.map(d => `<li>${d}</li>`).join("")
+      return `<div><h4>${prettyPlace}</h4><ul>${dateList}</ul></div>`
+    }).join("")
+  container.innerHTML = ""
+  container.innerHTML = `
+      <div class="card">
+        <img src="${ArtistInfo.image}" alt="${ArtistInfo.name}" />
+        <div>
+          <h2>${ArtistInfo.name}</h2>
+          <p>First Album: ${ArtistInfo.firstAlbum}</p>
+          <p>Creation Year: ${ArtistInfo.creationDate}</p>
+        </div>
+      </div>
+  
+      <div class="card">
+        <h3>Members</h3>
+        <ul>${members}</ul>
+      </div>
+  
+      <div class="card">
+        <h3>Locations</h3>
+        <ul>${locations}</ul>
+      </div>
+  
+      <div class="card">
+        <h3>Concert Dates</h3>
+        <ul>${concertDates}</ul>
+      </div>
+      <div class="card">
+        <h3>Concerts by Location</h3>
+        ${datesByLocation}
+      </div>
+      
+    `
+    // <button class="home-btn" id="back-home-btn">Back Home</button>
+    const btn = document.createElement("button")
+    btn.innerHTML = "Back Home"
+    btn.classList.add("home-btn")
+    btn.setAttribute("id","back-home-btn")
+    const actions = document.getElementById("actions")
+    actions.innerHTML = ""
+    actions.append(btn)
+  
+  //document.getElementById("back-home-btn").addEventListener("click", loadHomePage);
+}
+
 const touchedInputs = new Set();
-export{ touchedInputs}
-export function updateRangeValues() {
+{ touchedInputs}
+ function updateRangeValues() {
   const ranges = document.querySelectorAll('input[type="range"]');
 
   ranges.forEach((range) => {
@@ -44,7 +101,7 @@ export function updateRangeValues() {
 }
 
 
-export function renderError(err) {
+ function renderError(err) {
   document.body.innerHTML = "";
 
   const errorContent = document.createElement("div");
@@ -53,13 +110,15 @@ export function renderError(err) {
   errorContent.innerHTML = `
     <h1>Oooops 😬</h1>
     <p><strong>${err.status || "Error"}</strong> | ${err.message || "Something went wrong."}</p>
-    ${err.details ? `<pre>${err.details}</pre>` : ""}
     <button class = "home-btn" id="back-home-btn">Back Home</button>
   `;
 
   document.body.appendChild(errorContent);
-  document.getElementById("back-home-btn").addEventListener("click", loadHomePage);
+  //document.getElementById("back-home-btn").addEventListener("click", loadHomePage);
 }
+
+
+export {renderArtists,renderArtistDetails ,renderError,updateRangeValues,touchedInputs}
 
 
 

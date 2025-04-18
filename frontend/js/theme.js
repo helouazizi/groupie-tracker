@@ -1,9 +1,10 @@
 
-export function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
-
-    const btn = document.getElementById("theme-toggle");
-    const isDark = document.body.classList.contains("dark-mode");
-  
-    btn.textContent = isDark ? "☀️" : "🌙"; // Show sun in dark mode, moon in light mode
-}
+  // Tema değiştirme fonksiyonu
+ export function darckMode(params) {
+    const themeButton = document.getElementById('theme');
+    themeButton.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        themeButton.textContent = isDark ? '🌞' : '🌙'; // Tema butonunun ikonunu değiştir
+    });
+ }

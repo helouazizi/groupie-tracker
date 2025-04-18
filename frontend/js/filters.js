@@ -1,11 +1,10 @@
-import { renderArtists, touchedInputs , renderError } from './dom.js'
-
+import { renderArtists, touchedInputs , renderError } from './dom.js';
 
 export function setupFilters() {
-  const form = document.getElementById('filter-form')
+  const form = document.getElementById('filter-form');
   
   form.addEventListener('submit', async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const filters = {
       creationDateFrom: touchedInputs.has("creation-from")
@@ -31,18 +30,28 @@ export function setupFilters() {
 
     try {
       const res = await fetch('http://localhost:8080/api/artists/filter', {
-        method: 'POST',
+        method: 'POST', // Ensure the request is a POST
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(filters)
-      })
-      const data = await res.json()
-      renderArtists(data)
+        body: JSON.stringify(filters), // Send the filter data in the body
+      });
+
+      // Check for non-2xx responses
+      if (!res.ok) {
+        // If response status is 405 or any other error, throw an error
+        console.log("error");
+        
+        throw new Error(`HTTP Error ${res.status}: ${res.statusText}`);
+      }
+
+      const data = await res.json(); // Parse JSON response
+
+      renderArtists(data); // Render the artist data
+
     } catch (err) {
-      // network failure or invalid JSON
-      renderError(err)
-      
+      // Handle the error (either network or response status-related)
+      renderError(err.message); // Display the error message
     }
-  })
+  });
 }

@@ -32,3 +32,25 @@ input[type="radio"] {
 input[type="radio"]:checked {
     background-color: var(--color-primary, #555);
 }
+#theme {
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+#theme:hover {
+    transform: scale(1.1);
+}
+
+/* Karanlık Tema */
+body.dark-mode {
+    background-color: #121212;
+    color: rgb(56, 49, 49);
+}
+
+body.dark-mode #theme {
+    content: '🌞'; /* Güneş ikonu */
+}
