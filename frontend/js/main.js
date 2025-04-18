@@ -8,5 +8,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   renderArtists(data)
   updateRangeValues();
   artistDetails();
+  // test
   setupFilters();
 });
