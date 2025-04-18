@@ -70,7 +70,7 @@ function renderArtistDetails(data) {
     `
     // <button class="home-btn" id="back-home-btn">Back Home</button>
     const btn = document.createElement("button")
-    btn.innerHTML = "Back Home"
+    btn.innerHTML = "<a href='/frontend/'>Back Home</a>"
     btn.classList.add("home-btn")
     btn.setAttribute("id","back-home-btn")
     const actions = document.getElementById("actions")
@@ -110,11 +110,11 @@ const touchedInputs = new Set();
   errorContent.innerHTML = `
     <h1>Oooops 😬</h1>
     <p><strong>${err.status || "Error"}</strong> | ${err.message || "Something went wrong."}</p>
-    <button class = "home-btn" id="back-home-btn">Back Home</button>
+    <button class = "home-btn"><a href='/frontend/'>Back Home</a></button>
   `;
 
   document.body.appendChild(errorContent);
-  //document.getElementById("back-home-btn").addEventListener("click", loadHomePage);
+  
 }
 
 
