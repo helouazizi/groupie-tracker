@@ -1,5 +1,4 @@
-import { renderArtists, touchedInputs } from './dom.js'
-import { renderError } from './error.js'
+import { renderArtists, touchedInputs , renderError } from './dom.js'
 
 
 export function setupFilters() {

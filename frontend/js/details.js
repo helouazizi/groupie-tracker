@@ -1,8 +1,9 @@
-import { renderError } from "./error.js";
+import { renderError } from "./dom.js";
 
-export function artistDetails() {
-  const buttons = container.querySelectorAll(".details-btn");
-
+export async function artistDetails() {
+ // const container = document.getElementById("container"); 
+  const buttons = document.body.querySelectorAll(".details-btn");
+  console.log(buttons);
   buttons.forEach((btn) => {
     btn.addEventListener("click", async () => {
       const artistId = btn.dataset.id;
