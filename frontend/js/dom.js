@@ -1,5 +1,5 @@
 
- function renderArtists(artists) {
+function renderArtists(artists) {
   const container = document.getElementById("container");
   container.innerHTML = "";
 
@@ -68,21 +68,21 @@ function renderArtistDetails(data) {
       </div>
       
     `
-    // <button class="home-btn" id="back-home-btn">Back Home</button>
-    const btn = document.createElement("button")
-    btn.innerHTML = "<a href='/frontend/'>Back Home</a>"
-    btn.classList.add("home-btn")
-    btn.setAttribute("id","back-home-btn")
-    const actions = document.getElementById("actions")
-    actions.innerHTML = ""
-    actions.append(btn)
-  
+  // <button class="home-btn" id="back-home-btn">Back Home</button>
+  const btn = document.createElement("button")
+  btn.innerHTML = "<a href='/frontend/'>Back Home</a>"
+  btn.classList.add("home-btn")
+  btn.setAttribute("id", "back-home-btn")
+  const actions = document.getElementById("actions")
+  actions.innerHTML = ""
+  actions.append(btn)
+
   //document.getElementById("back-home-btn").addEventListener("click", loadHomePage);
 }
 
 const touchedInputs = new Set();
-{ touchedInputs}
- function updateRangeValues() {
+{ touchedInputs }
+function updateRangeValues() {
   const ranges = document.querySelectorAll('input[type="range"]');
 
   ranges.forEach((range) => {
@@ -101,7 +101,13 @@ const touchedInputs = new Set();
 }
 
 
- function renderError(err) {
+
+
+function renderError(err) {
+  if (window.hasGlobalError && window.hasGlobalError()) return;
+
+  window.setGlobalError?.();
+
   document.body.innerHTML = "";
 
   const errorContent = document.createElement("div");
@@ -110,18 +116,15 @@ const touchedInputs = new Set();
   errorContent.innerHTML = `
     <h1>Oooops 😬</h1>
     <p><strong>${err.status || "Error"}</strong> | ${err.message || "Something went wrong."}</p>
-    <button class = "home-btn"id="back-home-btn""><a href='/frontend/'>Back Home</a></button>
+    <button class="home-btn" id="back-home-btn"><a href='/frontend/'>Back Home</a></button>
   `;
 
   document.body.appendChild(errorContent);
-  // document.getElementById("back-home-btn").addEventListener("click", () => {
-  //   location.reload(); // just reloads the page
-  // });
-  
 }
 
 
-export {renderArtists,renderArtistDetails ,renderError,updateRangeValues,touchedInputs}
+
+export { renderArtists, renderArtistDetails, renderError, updateRangeValues, touchedInputs }
 
 
 

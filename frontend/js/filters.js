@@ -1,9 +1,9 @@
-import { renderArtists, touchedInputs , renderError } from './dom.js';
+import { renderArtists, touchedInputs, renderError } from './dom.js';
 
 export function setupFilters() {
   const form = document.getElementById('filter-form');
-  
-  form.addEventListener('submit', async (e) => {
+
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const filters = {
@@ -28,30 +28,25 @@ export function setupFilters() {
       concertDates: form.querySelector('#location-input')?.value.trim() || "",
     };
 
-    try {
-      const res = await fetch('http://localhost:8080/api/artists/filter', {
-        method: 'POST', // Ensure the request is a POST
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(filters), // Send the filter data in the body
+    fetch('http://localhost:8080/api/artists/filter', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(filters),
+    })
+      .then(res => {
+        if (!res.ok) {
+          console.log("error");
+          throw new Error(`HTTP Error ${res.status}: ${res.statusText}`);
+        }
+        return res.json();
+      })
+      .then(data => {
+        renderArtists(data);
+      })
+      .catch(err => {
+        renderError(err.message);
       });
-
-      // Check for non-2xx responses
-      if (!res.ok) {
-        // If response status is 405 or any other error, throw an error
-        console.log("error");
-        
-        throw new Error(`HTTP Error ${res.status}: ${res.statusText}`);
-      }
-
-      const data = await res.json(); // Parse JSON response
-
-      renderArtists(data); // Render the artist data
-
-    } catch (err) {
-      // Handle the error (either network or response status-related)
-      renderError(err.message); // Display the error message
-    }
   });
 }

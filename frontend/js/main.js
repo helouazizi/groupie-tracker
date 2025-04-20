@@ -1,14 +1,25 @@
 import { fetchArtists } from "./api.js";
-// import { artistDetails } from "./details.js";
+import { artistDetails } from "./details.js";
 import { darckMode } from "./theme.js";
-import { updateRangeValues, renderArtists } from "./dom.js";
+import { updateRangeValues } from "./dom.js";
 import { setupFilters } from "./filters.js";
+let globalErrorTriggered = false;
+
+window.setGlobalError = () => {
+    globalErrorTriggered = true;
+};
+
+window.hasGlobalError = () => globalErrorTriggered;
 
 //document.addEventListener("DOMContentLoaded", async (e) => {
 darckMode()
 updateRangeValues()
-fetchArtists()
-setupFilters()
+if (!window.hasGlobalError?.()) {
+    fetchArtists();
+    setupFilters();
+    //artistDetails();
+}
+
 //});
 
 
