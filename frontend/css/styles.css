@@ -4,6 +4,7 @@
 @import url(container.css);
 @import url(footer.css);
 @import url(error.css);
+@import url(search.css);
 
 * {
     padding: 0%;

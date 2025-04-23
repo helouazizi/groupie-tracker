@@ -107,6 +107,28 @@
 .filter-item button:hover {
     opacity: 0.9;
 }
+#filters {
+ 
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+  }
+  
+  #filters.hidden {
+  
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  #toggle-filters{
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: var(--color-primary);
+    padding: 10px;
+    color:#fff;
+    
+  }
+  
 
 
 @media (max-width: 768px) {

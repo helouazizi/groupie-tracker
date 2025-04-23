@@ -39,3 +39,5 @@
 2025/04/23 09:02:07 2025-04-23T09:02:07+01:00 [Function: go-rest-api/internal/handlers.(*ArtistsDetailsHandler).GetArtistDetails] [Line: 36] bad request
 2025/04/23 09:03:13 2025-04-23T09:03:13+01:00 [Function: go-rest-api/internal/handlers.(*ArtistsDetailsHandler).GetArtistDetails] [Line: 34] bad request
 2025/04/23 09:03:13 http: superfluous response.WriteHeader call from go-rest-api/internal/utils.RespondWithJSON (utils.go:58)
+2025/04/23 09:37:43 2025-04-23T09:37:43+01:00 [Function: go-rest-api/internal/handlers.(*ArtistsDetailsHandler).GetArtistDetails] [Line: 34] bad request
+2025/04/23 09:38:13 2025-04-23T09:38:13+01:00 [Function: go-rest-api/internal/handlers.(*ArtistsDetailsHandler).GetArtistDetails] [Line: 34] bad request

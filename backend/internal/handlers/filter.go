@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"go-rest-api/internal/models"
@@ -22,7 +23,7 @@ func (h *FilterHandler) Filter(w http.ResponseWriter, r *http.Request) {
 		utils.RespondWithError(w, http.StatusMethodNotAllowed, "Method Not Allowed", "")
 		return
 	}
-	// fmt.Println(r.Method)
+	fmt.Println(r.Method)
 	var data models.FilterRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {

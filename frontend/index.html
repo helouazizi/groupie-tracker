@@ -6,17 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/styles.css" />
   <title>Groupie-Tracker Filters</title>
-  <script defer type="module" src="./js/main.js"></script>
+  <script defer  src="./js/main.js"></script>
 </head>
 
 <body class="light">
   <!-- Default to light mode -->
   <header>
     <h1><a href="index.html">G-Tracker</a></h1>
+   
+    
     <button id="theme">🌙</button>
   </header>
   <main>
-    <section id="filters">
+    <div class="search-container">
+      <button id="toggle-filters" ><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M440-160q-17 0-28.5-11.5T400-200v-240L168-736q-15-20-4.5-42t36.5-22h560q26 0 36.5 22t-4.5 42L560-440v240q0 17-11.5 28.5T520-160h-80Zm40-308 198-252H282l198 252Zm0 0Z"/></svg></button>
+      <input type="search" class="search-input" name="search" placeholder="Search..."  id="search"/>
+      <div id="suggestions" class="suggestions-box"></div>
+    </div>
+   
+
+    <section id="filters" class="hidden">
       <h2>Filter Artists</h2>
       <form id="filter-form" method="POST">
         <div class="filter-group">
@@ -76,9 +85,7 @@
     </section>
     <div id="actions"></div>
   </main>
-  <footer>
-    <p>Made with ❤️ by Your Name</p>
-  </footer>
+  
 </body>
 
 </html>
