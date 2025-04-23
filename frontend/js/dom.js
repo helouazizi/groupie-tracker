@@ -27,13 +27,13 @@ function renderArtistDetails(data) {
 
   const { ArtistInfo, Locations, Dates, Relations } = data
 
-  const locations = Locations.locations.map(loc => `<li>${loc.replace(/-/g, ', ').replace(/_/g, ' ')}</li>`).join("")
-  const concertDates = Dates.dates.map(date => `<li>${date.replace('*', '')}</li>`).join("")
+  const locations = Locations.locations.map(loc => `<li>${loc}</li>`).join("")
+  const concertDates = Dates.dates.map(date => `<li>${date}</li>`).join("")
   const members = ArtistInfo.members.map(m => `<li>${m}</li>`).join("")
 
   const datesByLocation = Object.entries(Relations.datesLocations)
     .map(([place, dates]) => {
-      const prettyPlace = place.replace(/-/g, ', ').replace(/_/g, ' ')
+      const prettyPlace = place
       const dateList = dates.map(d => `<li>${d}</li>`).join("")
       return `<div><h4>${prettyPlace}</h4><ul>${dateList}</ul></div>`
     }).join("")
@@ -66,6 +66,7 @@ function renderArtistDetails(data) {
         <h3>Concerts by Location</h3>
         ${datesByLocation}
       </div>
+      
       
     `
     // <button class="home-btn" id="back-home-btn">Back Home</button>

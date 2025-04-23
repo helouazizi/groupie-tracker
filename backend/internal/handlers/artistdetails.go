@@ -6,7 +6,6 @@ import (
 
 	"go-rest-api/internal/services"
 	"go-rest-api/internal/utils"
-	"go-rest-api/pkg/logger"
 )
 
 type ArtistsDetailsHandler struct {
@@ -25,13 +24,13 @@ func (s *ArtistsDetailsHandler) GetArtistDetails(w http.ResponseWriter, r *http.
 	idStr := r.URL.Query().Get("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		logger.LogWithDetails(err)
+		// logger.LogWithDetails(err)
 		utils.RespondWithError(w, http.StatusBadRequest, "Bad Request", "invalid artist id")
 		return
 	}
 	details, err := s.Service.GetArtistDetails(id)
 	if err != nil {
-		logger.LogWithDetails(err)
+		// logger.LogWithDetails(err)
 		utils.RespondWithError(w, http.StatusBadRequest, "Bad Request", "artist my be deleted")
 		return
 	}

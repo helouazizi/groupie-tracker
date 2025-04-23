@@ -59,5 +59,6 @@ func RespondWithJSON(w http.ResponseWriter, statusCode int, response any) {
 	if err := json.NewEncoder(w).Encode(response); err != nil {
 		logger.LogWithDetails(err)
 		RespondWithError(w, http.StatusInternalServerError, "internal server error", "")
+		
 	}
 }
